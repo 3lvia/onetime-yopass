@@ -29,3 +29,18 @@ yarn add \
     redux-oidc \
     --no-progress
 ```
+
+## Environment Variables
+
+Create a `.env` file in the root of the project.
+
+```sh
+ELVID_AUTHORITY=https://elvid.test-elvia.io/
+ELVID_CLIENT_ID=***
+ELVID_REDIRECT_URI=http://localhost:3000/auth/signin
+ELVID_SCOPE=
+VAULT_ADDR=https://vault.test-elvia.io/
+VAULT_ROLE_ID=***
+ONETIME_URL=https://onetime.test-elvia.io/
+ONETIME_API_URL=https://onetime.test-elvia.io/
+```
