@@ -19,3 +19,12 @@ PUBLIC_URL='https://my-domain.com' REACT_APP_BACKEND_URL='http://api.my-domain.c
 ```
 
 Upload contents of `build/` to your CDN or hosting provider of choice, be it S3, Netlify or GCS.
+
+## OIDC
+
+```bash
+yarn add \
+    oidc-client \
+    redux-oidc \
+    --no-progress
+```
