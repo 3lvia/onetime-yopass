@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  </head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.9.1/oidc-client.min.js"
+      integrity="sha256-/sbo6w6wVujxxMStopK5ljgJRShU3gH6F/FK9Q8eh7Y="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      new Oidc.UserManager().signinSilentCallback().catch(err => {
+        console.log(err)
+      })
+    </script>
+  </body>
+</html>

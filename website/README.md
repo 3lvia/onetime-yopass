@@ -25,6 +25,7 @@ Upload contents of `build/` to your CDN or hosting provider of choice, be it S3,
 ```bash
 yarn add \
     oidc-client \
+    redux \
     redux-oidc \
     --no-progress
 ```
