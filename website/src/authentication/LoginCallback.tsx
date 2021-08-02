@@ -6,7 +6,7 @@ import userManager from "../services/userManager";
 
 const LoginCallback: FC = () => {
   const history = useHistory();
-  if (!userManager) return null
+
   return (
     <CallbackComponent
       userManager={userManager}
