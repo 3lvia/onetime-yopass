@@ -1,17 +1,18 @@
-import { navigate } from 'gatsby'
 import { FC } from 'react'
+import { useHistory } from "react-router-dom"
 import { CallbackComponent } from 'redux-oidc'
 import userManager from "../utils/userManager";
 
 const LoginCallback: FC = () => {
+  const history = useHistory();
   return (
     <CallbackComponent
       userManager={userManager}
       successCallback={() => {
-        navigate('/createSecret')
+        history.push("/createSecret");
       }}
       errorCallback={() => {
-        navigate('/loginPage')
+        history.push("/loginPage");
       }}
     >
     </CallbackComponent>
