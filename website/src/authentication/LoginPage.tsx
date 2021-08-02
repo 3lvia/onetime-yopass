@@ -12,6 +12,8 @@ class LoginPage extends React.Component {
   }
 
   render() {
+    console.log("LoginPage!")
+
     return (
       <div style={styles.root}>
         <h3>Welcome!</h3>
