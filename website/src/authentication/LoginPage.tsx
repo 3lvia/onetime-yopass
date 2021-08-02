@@ -1,6 +1,6 @@
 // import React from "react";
 import React, { CSSProperties } from "react";
-import userManager from "../utils/userManager";
+import userManager from "../services/userManager";
 // import { oidcSelectors } from '../store/oidc'
 
 // const accessToken = oidcSelectors.getAccessToken('') || ''

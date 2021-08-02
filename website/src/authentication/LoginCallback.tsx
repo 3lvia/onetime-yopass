@@ -1,10 +1,12 @@
 import { FC } from 'react'
 import { useHistory } from "react-router-dom"
 import { CallbackComponent } from 'redux-oidc'
-import userManager from "../utils/userManager";
+import userManager from "../services/userManager";
+
 
 const LoginCallback: FC = () => {
   const history = useHistory();
+  if (!userManager) return null
   return (
     <CallbackComponent
       userManager={userManager}
