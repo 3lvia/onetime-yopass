@@ -13,7 +13,7 @@ const redirectUri =
 
 const userManagerConfig = {
   client_id: process.env.ELVID_CLIENT_ID || '63db1528-e12a-455e-ad21-2bf929692c5d', // onetime-userclient (dev)
-  redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/createSecret`,
+  redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/loginCallback`,
   response_type: 'code',
   scope: process.env.ELVID_SCOPE || 'ad_groups email onetime.useraccess openid profile',
   authority: process.env.ELVID_AUTHORITY || 'https://elvid.test-elvia.io/',
