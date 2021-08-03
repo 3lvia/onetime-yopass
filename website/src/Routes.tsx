@@ -11,7 +11,7 @@ export const Routes = () => {
     <div>
       {/* <Route path="/" exact={true} component={CreateSecret} /> */}
       <Route path="/" exact={true} component={LoginPage} />
-      <Route path="/loginCallback" exact={true} component={LoginCallback} />
+      <Route path="/callback" exact={true} component={LoginCallback} />
       <Route path="/loginPage" exact={true} component={LoginPage} />
       <Route path="/createSecret" exact={true} component={CreateSecret} />
       <Route path="/upload" exact={true} component={Upload} />
