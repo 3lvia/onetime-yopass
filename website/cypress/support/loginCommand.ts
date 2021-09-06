@@ -15,6 +15,9 @@ export const login = (minutesUntilExpires: number = 10) => {
     tokenUrl,
   } = getLoginCredentials();
 
+  cy.log("getLoginCredentials:", getLoginCredentials())
+  console.log("getLoginCredentials:", getLoginCredentials())
+
   if (vaultClientId && vaultClientSecret) {
     getTokenFromElvid(
       vaultClientId,
@@ -27,6 +30,9 @@ export const login = (minutesUntilExpires: number = 10) => {
         ...storageValue,
         access_token: response.body.access_token,
       };
+
+      cy.log("storageValueWithAccessToken:", storageValueWithAccessToken)
+      console.log("storageValueWithAccessToken:", storageValueWithAccessToken)
 
       sessionStorage.setItem(
         storageKey,
@@ -50,6 +56,7 @@ export const login = (minutesUntilExpires: number = 10) => {
       },
     };
 
+    cy.log("---- #1 ----")
     cy.request(options).then((response) => {
       cy.log('Got vault_token from vault');
 

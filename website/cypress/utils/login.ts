@@ -18,6 +18,7 @@ export const getTokenFromElvid = (
     },
   };
 
+  cy.log("---- #2 ----")
   return cy.request(options);
 };
 
@@ -26,6 +27,7 @@ const createEpochTime = (minutesFromNow: number) =>
 
 export const getLoginCredentials = () => {
   const vaultClientId = Cypress.env('VAULT_CLIENT_ID');
+  cy.log("vaultClientId:", vaultClientId)
   const vaultClientSecret = Cypress.env('VAULT_CLIENT_SECRET');
   const username = Cypress.env('ONETIME_TEST_USER_EMAIL');
   const password = Cypress.env('ONETIME_TEST_USER_PASSWORD');
@@ -63,6 +65,13 @@ export const getSecretFromVault = (
   address: string,
   elvidPath: string,
 ) => {
+  cy.task('log', 'This will be output to the terminal.')
+  console.log('log', 'This will be output to the terminal.')
+
+  console.log("token:", token)
+  console.log("address:", address)
+  console.log("elvidPath", elvidPath)
+
   const options = {
     method: 'GET',
     url: address + '/v1/' + elvidPath,
@@ -71,5 +80,6 @@ export const getSecretFromVault = (
     },
   };
 
+  cy.log("---- #3----")
   return cy.request(options);
 };

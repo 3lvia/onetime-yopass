@@ -38,7 +38,8 @@
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.3",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.0.1",
+    "@types/mocha": "^9.0.0",
     "@types/node": "^16.7.6",
     "@types/openpgp": "^4.4.17",
     "@types/react": "^17.0.15",
