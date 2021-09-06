@@ -1,5 +1,11 @@
 {
   "baseUrl": "http://localhost:3000",
   "projectId": "ona5c5",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "supportFile": "cypress/support/index.ts",
+  "defaultCommandTimeout": 10000,
+  "viewportWidth": 1024,
+  "screenshotOnRunFailure": false,
+  "video": false,
+  "retries": { "runMode": 2, "openMode": 0 }
 }

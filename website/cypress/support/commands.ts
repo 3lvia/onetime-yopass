@@ -24,3 +24,17 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
+
+import { login } from './loginCommand';
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login: typeof login;
+    }
+  }
+}
+
+Cypress.Commands.add('login', (minutesUntilExpires = 10) =>
+  login(minutesUntilExpires),
+);
