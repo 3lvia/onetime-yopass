@@ -14,6 +14,11 @@ npx cypress run \
     --headless \
     --spec="cypress/integration/load_website.ts"
 
+npx cypress open \
+    --env VAULT_ROLE_ID="${VAULT_ROLE_ID}",VAULT_ADDR="${VAULT_ADDR}",USERNAME="${USERNAME}",PASSWORD="${PASSWORD}",ELVID_AUTHORITY="${ELVID_AUTHORITY}",ELVID_CLIENT_ID="${ELVID_CLIENT_ID}",ELVID_SCOPE="${ELVID_SCOPE}"
+
+npx cypress open
+
 npx cypress run \
     --headless \
     --spec="cypress/integration/signin_testuser.ts"
