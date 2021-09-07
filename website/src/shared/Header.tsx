@@ -137,6 +137,7 @@ export const Header = () => {
 
           {isHome && (
             <Button
+              id="signInOrSignOutButton"
               onClick={isUserSignedOut ? signIn : signOut}
               variant="contained"
               color="primary"

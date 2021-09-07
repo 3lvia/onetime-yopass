@@ -30,6 +30,10 @@ module.exports = (on, config) => {
       };
     }
 
+    if (browser.name === 'chrome') {
+      launchOptions.args.push('--disable-site-isolation-trials');
+    }
+
     // https://docs.cypress.io/api/plugins/browser-launch-api#Modify-browser-launch-arguments
     console.log(launchOptions.args) // print all current args
 
