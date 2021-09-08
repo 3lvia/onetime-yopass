@@ -25,3 +25,6 @@ deploy/aws-lambda/.serverless
 website/cypress/videos
 website/cypress/screenshots
 node_modules
+
+**/*.json
+**/output/

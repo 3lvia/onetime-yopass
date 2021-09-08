@@ -8,4 +8,5 @@ test('blank', async ({ page }) => {
     'button#signInOrSignOutButton',
   );
   await expect(signInOrSignOutButtonTitle).toHaveText('Sign-In');
+  await page.screenshot({ path: 'tests/output/blank.png' });
 });
