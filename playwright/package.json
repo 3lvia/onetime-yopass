@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "@playwright/test": "^1.14.1",
+    "prettier": "^2.3.2"
+  },
+  "scripts": {
+    "format": "prettier --ignore-path .gitignore --check --write .",
+    "lint": "prettier --ignore-path .gitignore --check .",
+    "test": "playwright test"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "private": true
+}
