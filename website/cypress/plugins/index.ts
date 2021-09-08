@@ -21,7 +21,7 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on('before:browser:launch', (browser = {}, launchOptions) => {
-    console.log(launchOptions.args) // print all current args
+    console.log(launchOptions.args); // print all current args
 
     const downloadDirectory = path.join(__dirname, '..', 'downloads');
     if (browser.family === 'chromium' && browser.isHeaded) {
@@ -35,21 +35,21 @@ module.exports = (on, config) => {
     }
 
     // https://docs.cypress.io/api/plugins/browser-launch-api#Modify-browser-launch-arguments
-    console.log(launchOptions.args) // print all current args
+    console.log(launchOptions.args); // print all current args
 
     if (browser.family === 'chromium' && browser.name !== 'electron') {
       // auto open devtools
-      launchOptions.args.push('--auto-open-devtools-for-tabs')
+      launchOptions.args.push('--auto-open-devtools-for-tabs');
     }
 
     if (browser.family === 'firefox') {
       // auto open devtools
-      launchOptions.args.push('-devtools')
+      launchOptions.args.push('-devtools');
     }
 
     if (browser.name === 'electron') {
       // auto open devtools
-      launchOptions.preferences.devTools = true
+      launchOptions.preferences.devTools = true;
     }
 
     return launchOptions;
