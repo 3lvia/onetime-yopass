@@ -1,0 +1,75 @@
+---
+trigger:
+  batch: false
+  branches:
+    include:
+      - "*"
+  tags:
+    include:
+      - "*"
+
+pr:
+  autoCancel: boolean
+  branches:
+    include:
+      - "features/*"
+    exclude:
+      - "features/experimental/*"
+  paths:
+    exclude:
+      - "README.md"
+  drafts: true
+
+schedules:
+  - cron: "0 14 * * *" # 00:00 AEST is 14:00 UTC
+    displayName: "Daily Build"
+    branches:
+      include:
+        - master
+
+variables:
+  containerRegistry: "ContainerRegistryElvia"
+  imageTag: $(Build.BuildNumber)
+  name: yopass
+  namespace: onetime
+  PIPELINE_VARIABLE: 'Pipeline'
+
+pool:
+  vmImage: "ubuntu-20.04"
+
+container: mcr.microsoft.com/playwright:focal
+
+stages:
+  - stage: 'FirstStage'
+    displayName: 'First Stage'
+    dependsOn: []
+    condition: []
+    variables:
+      - name: myReadOnlyVar
+        value: myValue
+        readonly: true
+      - STAGE_VARIABLE: 'Stage'
+    jobs:
+      - job: 'FirstJob'
+        displayName: 'First Job'
+        continueOnError: true
+        workspace:
+          clean: outputs
+        variables:
+          JOB_VARIABLE: 'Job'
+        steps:
+          - script: "echo First Job!"
+          - script: "echo $(PIPELINE_VARIABLE) $(STAGE_VARIABLE) $(JOB_VARIABLE)"
+
+  - stage: 'Playwright'
+    name: 'Playwright'
+    dependsOn: []
+    jobs:
+      test:
+        runs-on: ubuntu-latest
+        container: mcr.microsoft.com/playwright:focal
+        steps:
+          - uses: actions/checkout@v2
+          - run: yarn
+          - run: yarn run lint
+          - run: yarn run playwright-ci
