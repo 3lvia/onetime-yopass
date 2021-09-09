@@ -82,6 +82,7 @@ stages:
           env:
             helloName: Playwright
         - bash: |
+            cd playwright
             yarn
             yarn run lint
             yarn run playwright-ci
