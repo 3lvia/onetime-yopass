@@ -63,10 +63,12 @@ stages:
           - script: "echo $(PIPELINE_VARIABLE) $(STAGE_VARIABLE) $(JOB_VARIABLE)"
 
   - stage: 'Playwright'
-    name: 'Playwright'
+    displayName: 'Playwright'
     dependsOn: []
     jobs:
-      test:
+      - job: 'PlaywrightJob'
+        displayName: 'Playwright Job'
+        continueOnError: true
         runs-on: ubuntu-latest
         container: mcr.microsoft.com/playwright:focal
         steps:
