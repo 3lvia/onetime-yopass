@@ -48,7 +48,8 @@ stages:
       - name: myReadOnlyVar
         value: myValue
         readonly: true
-      - STAGE_VARIABLE: 'Stage'
+      - name: 'STAGE_VARIABLE'
+        value: 'Stage'
     jobs:
       - job: 'FirstJob'
         displayName: 'First Job'
