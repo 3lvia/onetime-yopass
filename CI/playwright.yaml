@@ -87,4 +87,4 @@ stages:
             yarn run lint
             yarn run playwright-ci
           displayName: 'Multiline Playwright Commands'
-          workingDirectory: '$(Pipeline.Workspace)/s/playwright'
+          workingDirectory: '$(Pipeline.Workspace)/s/website/playwright'
