@@ -43,7 +43,7 @@ stages:
   - stage: 'FirstStage'
     displayName: 'First Stage'
     dependsOn: []
-    condition: []
+    condition: 'succeededOrFailed()'
     variables:
       - name: myReadOnlyVar
         value: myValue
