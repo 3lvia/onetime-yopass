@@ -83,8 +83,8 @@ stages:
             helloName: Playwright
         - bash: |
             ls -aln $(Pipeline.Workspace)/s
-            cd $(Pipeline.Workspace)/s/playwright
             yarn
             yarn run lint
             yarn run playwright-ci
           displayName: 'Multiline Playwright Commands'
+          workingDirectory: '$(Pipeline.Workspace)/s/playwright'
