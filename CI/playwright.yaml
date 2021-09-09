@@ -35,9 +35,9 @@ variables:
   PIPELINE_VARIABLE: 'Pipeline'
 
 pool:
-  vmImage: "ubuntu-20.04"
+  vmImage: "ubuntu-latest"
 
-container: mcr.microsoft.com/playwright:focal
+# container: mcr.microsoft.com/playwright:focal
 
 stages:
   - stage: 'FirstStage'
