@@ -9,7 +9,7 @@ trigger:
       - "*"
 
 pr:
-  autoCancel: boolean
+  autoCancel: true
   branches:
     include:
       - "features/*"
