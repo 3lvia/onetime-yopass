@@ -69,10 +69,20 @@ stages:
       - job: 'PlaywrightJob'
         displayName: 'Playwright Job'
         continueOnError: true
-        runs-on: ubuntu-latest
         container: mcr.microsoft.com/playwright:focal
         steps:
-          - uses: actions/checkout@v2
-          - run: yarn
-          - run: yarn run lint
-          - run: yarn run playwright-ci
+        - checkout: self
+          clean: true
+          fetchDepth: 5
+          lfs: false
+      - bash: |
+          which bash
+          echo Hello ${helloName}
+        displayName: 'Multiline Bash Commands'
+        env:
+          helloName: Playwright
+      - bash: |
+          yarn
+          yarn run lint
+          yarn run playwright-ci
+        displayName: 'Multiline Playwright Commands'
