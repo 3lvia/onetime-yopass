@@ -152,6 +152,7 @@ export const Header = () => {
 
           {!isUserSignedOut && (
             <Button
+              id="createButton"
               // disabled={isOnCreatePage ? true : false}
               component={RouterLink}
               to={isOnCreatePage ? home : create}
@@ -168,6 +169,7 @@ export const Header = () => {
 
           {!isUserSignedOut && (
             <Button
+              id="uploadButton"
               // disabled={isOnUploadPage ? true : false}
               component={RouterLink}
               to={isOnUploadPage ? home : upload}

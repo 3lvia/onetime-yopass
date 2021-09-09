@@ -8,5 +8,5 @@ test('signin_yopass', async ({ page }) => {
   await page.fill('#Password', process.env.ONETIME_TEST_USER_PASSWORD);
   await page.click('button#LoginFormActionButton');
   await page.waitForLoadState('networkidle');
-  await page.screenshot({ path: 'tests/output/signin.png' });
+  await page.screenshot({ path: 'tests/output/signin_yopass.png' });
 });

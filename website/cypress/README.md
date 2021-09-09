@@ -3,6 +3,11 @@
 ## Getting Started
 
 ```bash
+yarn \
+    && yarn add --dev cypress \
+    && yarn run format \
+    && yarn run cy-test
+
 npx cypress run \
     --headless
 
