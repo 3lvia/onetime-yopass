@@ -82,6 +82,8 @@ stages:
           env:
             helloName: Playwright
         - bash: |
+            ls -aln $(Pipeline.Workspace)
+            ls -aln $(Pipeline.Workspace)/s
             cd playwright
             yarn
             yarn run lint
