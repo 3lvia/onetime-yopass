@@ -54,8 +54,4 @@ jobs:
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-          VAULT_ROLE_ID: ${{ secrets.VAULT_ROLE_ID }}
-          CYPRESS_VAULT_ADDR: ${{ secrets.CYPRESS_VAULT_ADDR }}
-          CYPRESS_VAULT_ROLE_ID: ${{ secrets.CYPRESS_VAULT_ROLE_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
