@@ -35,12 +35,10 @@ async function globalSetup() {
     }
     console.log(data);
     jsonObject = JSON.parse(data);
-    jsonObject.forEach(function (element) {
-      console.log(element['cookies'][0].name);
-    });
-
     console.log('Cookies:', jsonObject['cookies'][0].name);
     console.log('Cookies:', jsonObject['cookies'][0].expires);
+    console.log('Cookies:', jsonObject['cookies'][1].name);
+    console.log('Cookies:', jsonObject['cookies'][1].expires);
   });
 
   console.log('__dirname:', __dirname);
