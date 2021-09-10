@@ -7,19 +7,19 @@ const fs = require('fs');
 globalSetup();
 
 fs.readdirSync('.').forEach((file: any) => {
-  console.log("TESTFILE:", file);
+  console.log('TESTFILE:', file);
 });
 
 // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
-fs.readFile('storage_state.json', 'utf8', function (err,data) {
+fs.readFile('storage_state.json', 'utf8', function (err, data) {
   if (err) {
     return console.log(err);
   }
-  console.log("TESTDATA:", data);
+  console.log('TESTDATA:', data);
 });
 
-console.log("__dirname:", __dirname);
-console.log("path.dirname(__filename):", path.dirname(__filename));
+console.log('__dirname:', __dirname);
+console.log('path.dirname(__filename):', path.dirname(__filename));
 
 test.use({ storageState: 'storage_state.json' });
 
