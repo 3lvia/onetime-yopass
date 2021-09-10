@@ -57,13 +57,23 @@ stages:
         workspace:
           clean: outputs
         variables:
-          JOB_VARIABLE: "Job"
+          JOB_VARIABLE: "First Job"
         steps:
           - script: "echo First Job!"
           - script: "echo $(PIPELINE_VARIABLE) $(STAGE_VARIABLE) $(JOB_VARIABLE)"
+      - job: "SecondJob"
+        displayName: "Second Job"
+        continueOnError: true
+        workspace:
+          clean: outputs
+        variables:
+          JOB_VARIABLE: "Second Job"
+        steps:
+          - script: "echo Second Job!"
+          - script: "echo $(PIPELINE_VARIABLE) $(STAGE_VARIABLE) $(JOB_VARIABLE)"
 
-  - stage: "Playwright"
-    displayName: "Playwright"
+  - stage: "PlaywrightStage"
+    displayName: "Playwright Stage"
     dependsOn: []
     variables:
       - group: "playwright"
