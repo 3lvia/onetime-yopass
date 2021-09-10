@@ -9,7 +9,7 @@ const storageStateFileName = 'storage_state.json';
 globalSetup();
 
 fs.readdirSync('.').forEach((file: any) => {
-  console.log('TESTFILE:', file);
+  console.log('Current Directory Files:', file);
 });
 
 console.log('__dirname:', __dirname);
