@@ -21,7 +21,7 @@ console.log('__dirname:', __dirname);
 console.log('path.dirname(__filename):', path.dirname(__filename));
 
 // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
-fs.readFile(storageStateFilePath, 'utf8', function (err, data) {
+fs.readFile(".." + path.sep + storageStateFilePath, 'utf8', function (err, data) {
   if (err) {
     return console.log(err);
   }
