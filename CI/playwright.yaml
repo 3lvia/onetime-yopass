@@ -111,6 +111,7 @@ stages:
               workingDirectory: "$(Pipeline.Workspace)/s/website/playwright"
               targetType: "inline"
               script: |
+                touch storage_state.json
                 ls -aln $(Pipeline.Workspace)/s
                 printenv
                 echo \$\(ONETIME_TEST_USER_EMAIL\): $(ONETIME_TEST_USER_EMAIL)
@@ -118,3 +119,4 @@ stages:
                 yarn
                 yarn run lint
                 yarn run playwright-ci
+                cat --show-all storage_state.json
