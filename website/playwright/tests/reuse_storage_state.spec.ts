@@ -12,7 +12,7 @@ fs.readdirSync('.').forEach((file: any) => {
   console.log('Current Directory Files:', file);
 });
 
-console.log('process.cwd():', process.cwd())
+console.log('process.cwd():', process.cwd());
 console.log('__dirname:', __dirname);
 console.log('path.dirname(__filename):', path.dirname(__filename));
 
