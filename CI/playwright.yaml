@@ -100,8 +100,8 @@ stages:
               ONETIME_TEST_USER_PASSWORD: $(ONETIME_TEST_USER_PASSWORD)
           # Workaround "Error: ENOSPC: System limit for number of file watchers reached."
           # https://github.com/gatsbyjs/gatsby/issues/11406#issuecomment-458769756
-          - script: echo fs.inotify.max_user_watches=524288 | tee --append /etc/sysctl.conf && sysctl --load
-            displayName: "Increase File Watchers"
+          # - script: echo fs.inotify.max_user_watches=524288 | tee --append /etc/sysctl.conf && sysctl --load
+          #   displayName: "Increase File Watchers"
           - task: Bash@3
             displayName: "Multiline Playwright Commands"
             env:
