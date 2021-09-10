@@ -110,6 +110,10 @@ stages:
             inputs:
               workingDirectory: "$(Pipeline.Workspace)/s/website/playwright"
               targetType: "inline"
+              # "Error: ENOSPC: System limit for number of file watchers reached."
+              # Workaround for read-only system configuration files.
+              # CHOKIDAR_USEPOLLING=1
+              # https://stackoverflow.com/a/56272746
               script: |
                 touch storage_state.json
                 ls -aln $(Pipeline.Workspace)/s
@@ -118,5 +122,5 @@ stages:
                 echo \${ONETIME_TEST_USER_EMAIL}: ${ONETIME_TEST_USER_EMAIL}
                 yarn
                 yarn run lint
-                yarn run playwright-ci
+                CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
                 cat --show-all storage_state.json
