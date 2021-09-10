@@ -98,6 +98,9 @@ stages:
               playwrightName: Playwright
               ONETIME_TEST_USER_EMAIL: $(ONETIME_TEST_USER_EMAIL)
               ONETIME_TEST_USER_PASSWORD: $(ONETIME_TEST_USER_PASSWORD)
+          # Workaround "Error: ENOSPC: System limit for number of file watchers reached."
+          - script: echo fs.inotify.max_user_watches=524288 | sudo tee --append /etc/sysctl.conf && sudo sysctl --load
+            displayName: Encrease file watchers
           - task: Bash@3
             displayName: "Multiline Playwright Commands"
             env:
