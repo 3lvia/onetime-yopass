@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test';
-import path from 'path';
 import globalSetup from './browser/globalSetup';
 // import globalTeardown from './browser/globalTeardown';
+import path from 'path';
 const fs = require('fs');
+let jsonObject: any;
+const storageStateFileName = 'storage_state.json';
 
 globalSetup();
 
@@ -10,18 +12,22 @@ fs.readdirSync('.').forEach((file: any) => {
   console.log('TESTFILE:', file);
 });
 
-// https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
-fs.readFile('storage_state.json', 'utf8', function (err, data) {
-  if (err) {
-    return console.log(err);
-  }
-  console.log('TESTDATA:', data);
-});
-
 console.log('__dirname:', __dirname);
 console.log('path.dirname(__filename):', path.dirname(__filename));
 
-test.use({ storageState: 'storage_state.json' });
+// https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
+fs.readFile(storageStateFileName, 'utf8', function (err, data) {
+  if (err) {
+    return console.log(err);
+  }
+  jsonObject = JSON.parse(data);
+  console.log('Cookies:', jsonObject['cookies'][0].name);
+  console.log('Cookies:', jsonObject['cookies'][0].expires);
+  console.log('Cookies:', jsonObject['cookies'][1].name);
+  console.log('Cookies:', jsonObject['cookies'][1].expires);
+});
+
+test.use({ storageState: storageStateFileName });
 
 test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');

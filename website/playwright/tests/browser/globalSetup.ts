@@ -27,22 +27,22 @@ async function globalSetup() {
     console.log('Current Directory Files:', file);
   });
 
+  console.log('__dirname:', __dirname);
+  console.log('path.dirname(__filename):', path.dirname(__filename));
+
   // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
   // https://stackoverflow.com/a/10011174
   fs.readFile(storageStateFileName, 'utf8', function (err, data) {
     if (err) {
       return console.log('ReadFile Error:', err);
     }
-    console.log(data);
+    // console.log(data);
     jsonObject = JSON.parse(data);
     console.log('Cookies:', jsonObject['cookies'][0].name);
     console.log('Cookies:', jsonObject['cookies'][0].expires);
     console.log('Cookies:', jsonObject['cookies'][1].name);
     console.log('Cookies:', jsonObject['cookies'][1].expires);
   });
-
-  console.log('__dirname:', __dirname);
-  console.log('path.dirname(__filename):', path.dirname(__filename));
 
   // const cookies = await page.context().cookies();
   // const cookieJson = JSON.stringify(cookies);
