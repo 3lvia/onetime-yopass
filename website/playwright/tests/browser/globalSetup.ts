@@ -1,4 +1,5 @@
 import { chromium } from '@playwright/test';
+import path from 'path';
 const fs = require('fs');
 
 async function globalSetup() {
@@ -31,6 +32,9 @@ async function globalSetup() {
     }
     console.log("DATA:", data);
   });
+
+  console.log(__dirname);
+  console.log(path.dirname(__filename));
 
   // const cookies = await page.context().cookies();
   // const cookieJson = JSON.stringify(cookies);

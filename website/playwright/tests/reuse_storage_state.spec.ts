@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import path from 'path';
 import globalSetup from './browser/globalSetup';
 // import globalTeardown from './browser/globalTeardown';
 const fs = require('fs');
@@ -16,6 +17,9 @@ fs.readFile('storage_state.json', 'utf8', function (err,data) {
   }
   console.log("TESTDATA:", data);
 });
+
+console.log(__dirname);
+console.log(path.dirname(__filename));
 
 test.use({ storageState: 'storage_state.json' });
 
