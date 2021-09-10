@@ -115,7 +115,6 @@ stages:
               # CHOKIDAR_USEPOLLING=1
               # https://stackoverflow.com/a/56272746
               script: |
-                touch storage_state.json
                 ls -aln $(Pipeline.Workspace)/s
                 printenv
                 echo \$\(ONETIME_TEST_USER_EMAIL\): $(ONETIME_TEST_USER_EMAIL)
@@ -123,4 +122,3 @@ stages:
                 yarn
                 yarn run lint
                 CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
-                cat --show-all storage_state.json
