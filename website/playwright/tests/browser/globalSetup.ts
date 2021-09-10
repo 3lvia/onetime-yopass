@@ -2,7 +2,7 @@ import { chromium } from '@playwright/test';
 import path from 'path';
 const fs = require('fs');
 let jsonObject: any;
-const storageStateFileName = 'storage_state.json';
+const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
 
 async function globalSetup() {
   // console.log('Global setup....');
@@ -21,7 +21,7 @@ async function globalSetup() {
   await page.click('button#LoginFormActionButton');
   await page.waitForLoadState('networkidle');
 
-  await page.context().storageState({ path: storageStateFileName });
+  await page.context().storageState({ path: storageStateFilePath });
 
   fs.readdirSync('.').forEach((file: any) => {
     console.log('Current Directory Files:', file);
@@ -33,7 +33,7 @@ async function globalSetup() {
 
   // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
   // https://stackoverflow.com/a/10011174
-  fs.readFile(storageStateFileName, 'utf8', function (err, data) {
+  fs.readFile(storageStateFilePath, 'utf8', function (err, data) {
     if (err) {
       return console.log('ReadFile Error:', err);
     }

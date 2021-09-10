@@ -4,7 +4,7 @@ import globalSetup from './browser/globalSetup';
 import path from 'path';
 const fs = require('fs');
 let jsonObject: any;
-const storageStateFileName = 'storage_state.json';
+const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
 
 globalSetup();
 
@@ -17,7 +17,7 @@ console.log('__dirname:', __dirname);
 console.log('path.dirname(__filename):', path.dirname(__filename));
 
 // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
-fs.readFile(storageStateFileName, 'utf8', function (err, data) {
+fs.readFile(storageStateFilePath, 'utf8', function (err, data) {
   if (err) {
     return console.log(err);
   }
@@ -28,7 +28,7 @@ fs.readFile(storageStateFileName, 'utf8', function (err, data) {
   console.log('Cookies:', jsonObject['cookies'][1].expires);
 });
 
-test.use({ storageState: storageStateFileName });
+test.use({ storageState: storageStateFilePath });
 
 test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');
