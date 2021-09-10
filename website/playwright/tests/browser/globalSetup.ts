@@ -1,7 +1,7 @@
 import { chromium } from '@playwright/test';
 import path from 'path';
 const fs = require('fs');
-let obj: any;
+let jsonObject: any;
 const storageStateFileName = 'storage_state.json';
 
 async function globalSetup() {
@@ -34,9 +34,13 @@ async function globalSetup() {
       return console.log('ReadFile Error:', err);
     }
     console.log(data);
-    obj = JSON.parse(data);
-    console.log('Cookies:', obj['cookies'][0].name);
-    console.log('Cookies:', obj['cookies'][0].expires);
+    jsonObject = JSON.parse(data);
+    jsonObject.forEach(function (element) {
+      console.log(element['cookies'][0].name);
+    });
+
+    console.log('Cookies:', jsonObject['cookies'][0].name);
+    console.log('Cookies:', jsonObject['cookies'][0].expires);
   });
 
   console.log('__dirname:', __dirname);
