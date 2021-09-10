@@ -88,13 +88,19 @@ stages:
               playwrightName: Playwright
               ONETIME_TEST_USER_EMAIL: $(ONETIME_TEST_USER_EMAIL)
               ONETIME_TEST_USER_PASSWORD: $(ONETIME_TEST_USER_PASSWORD)
-          - bash: |
-              ls -aln $(Pipeline.Workspace)/s
-              printenv
-              echo \$\(ONETIME_TEST_USER_EMAIL\): $(ONETIME_TEST_USER_EMAIL)
-              echo \${ONETIME_TEST_USER_EMAIL}: ${ONETIME_TEST_USER_EMAIL}
-              yarn
-              yarn run lint
-              yarn run playwright-ci
+          - task: Bash@3
             displayName: "Multiline Playwright Commands"
-            workingDirectory: "$(Pipeline.Workspace)/s/website/playwright"
+            env:
+              ONETIME_TEST_USER_EMAIL: $(ONETIME_TEST_USER_EMAIL)
+              ONETIME_TEST_USER_PASSWORD: $(ONETIME_TEST_USER_PASSWORD)
+            inputs:
+              workingDirectory: "$(Pipeline.Workspace)/s/website/playwright"
+              targetType: "inline"
+              script: |
+                ls -aln $(Pipeline.Workspace)/s
+                printenv
+                echo \$\(ONETIME_TEST_USER_EMAIL\): $(ONETIME_TEST_USER_EMAIL)
+                echo \${ONETIME_TEST_USER_EMAIL}: ${ONETIME_TEST_USER_EMAIL}
+                yarn
+                yarn run lint
+                yarn run playwright-ci
