@@ -2,7 +2,8 @@ import { chromium } from '@playwright/test';
 import path from 'path';
 const fs = require('fs');
 let jsonObject: any;
-const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
+// const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
+const storageStateFilePath = 'storage_state.json';
 
 async function globalSetup() {
   // console.log('Global setup....');
@@ -23,7 +24,7 @@ async function globalSetup() {
 
   await page.context().storageState({ path: storageStateFilePath });
 
-  fs.readdirSync('.').forEach((file: any) => {
+  fs.readdirSync(process.cwd()).forEach((file: any) => {
     console.log('Current Directory Files:', file);
   });
 

@@ -4,12 +4,16 @@ import globalSetup from './browser/globalSetup';
 import path from 'path';
 const fs = require('fs');
 let jsonObject: any;
-const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
+// const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
+const storageStateFilePath = 'storage_state.json';
 
 globalSetup();
 
-fs.readdirSync('.').forEach((file: any) => {
-  console.log('Current Directory Files:', file);
+fs.readdirSync(process.cwd()).forEach((file: any) => {
+  console.log('Current Directory File:', file);
+  var stats = fs.statSync(file);
+  var fileSizeInBytes = stats.size;
+  console.log('Current Directory File Size (Bytes):', fileSizeInBytes);
 });
 
 console.log('process.cwd():', process.cwd());
