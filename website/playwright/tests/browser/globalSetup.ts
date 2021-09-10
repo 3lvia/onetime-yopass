@@ -1,5 +1,5 @@
 import { chromium } from '@playwright/test';
-// const fs = require('fs');
+const fs = require('fs');
 
 async function globalSetup() {
   // console.log('Global setup....');
@@ -19,6 +19,18 @@ async function globalSetup() {
   await page.waitForLoadState('networkidle');
 
   await page.context().storageState({ path: 'storage_state.json' });
+
+  fs.readdirSync('.').forEach((file: any) => {
+    console.log("FILE:", file);
+  });
+
+  // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
+  fs.readFile('storage_state.json', 'utf8', function (err,data) {
+    if (err) {
+      return console.log(err);
+    }
+    console.log("DATA:", data);
+  });
 
   // const cookies = await page.context().cookies();
   // const cookieJson = JSON.stringify(cookies);
