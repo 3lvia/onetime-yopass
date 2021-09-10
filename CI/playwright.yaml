@@ -32,7 +32,7 @@ variables:
   imageTag: $(Build.BuildNumber)
   name: yopass
   namespace: onetime
-  PIPELINE_VARIABLE: 'Pipeline'
+  PIPELINE_VARIABLE: "Pipeline"
 
 pool:
   vmImage: "ubuntu-latest"
@@ -40,51 +40,53 @@ pool:
 # container: mcr.microsoft.com/playwright:focal
 
 stages:
-  - stage: 'FirstStage'
-    displayName: 'First Stage'
+  - stage: "FirstStage"
+    displayName: "First Stage"
     dependsOn: []
-    condition: 'succeededOrFailed()'
+    condition: "succeededOrFailed()"
     variables:
       - name: myReadOnlyVar
         value: myValue
         readonly: true
-      - name: 'STAGE_VARIABLE'
-        value: 'Stage'
+      - name: "STAGE_VARIABLE"
+        value: "Stage"
     jobs:
-      - job: 'FirstJob'
-        displayName: 'First Job'
+      - job: "FirstJob"
+        displayName: "First Job"
         continueOnError: true
         workspace:
           clean: outputs
         variables:
-          JOB_VARIABLE: 'Job'
+          JOB_VARIABLE: "Job"
         steps:
           - script: "echo First Job!"
           - script: "echo $(PIPELINE_VARIABLE) $(STAGE_VARIABLE) $(JOB_VARIABLE)"
 
-  - stage: 'Playwright'
-    displayName: 'Playwright'
+  - stage: "Playwright"
+    displayName: "Playwright"
     dependsOn: []
+    variables:
+      - group: string
     jobs:
-      - job: 'PlaywrightJob'
-        displayName: 'Playwright Job'
+      - job: "PlaywrightJob"
+        displayName: "Playwright Job"
         continueOnError: true
         container: mcr.microsoft.com/playwright:focal
         steps:
-        - checkout: self
-          clean: true
-          fetchDepth: 5
-          lfs: false
-        - bash: |
-            which bash
-            echo Hello ${helloName}
-          displayName: 'Multiline Bash Commands'
-          env:
-            helloName: Playwright
-        - bash: |
-            ls -aln $(Pipeline.Workspace)/s
-            yarn
-            yarn run lint
-            yarn run playwright-ci
-          displayName: 'Multiline Playwright Commands'
-          workingDirectory: '$(Pipeline.Workspace)/s/website/playwright'
+          - checkout: self
+            clean: true
+            fetchDepth: 5
+            lfs: false
+          - bash: |
+              which bash
+              echo Hello ${helloName}
+            displayName: "Multiline Bash Commands"
+            env:
+              helloName: Playwright
+          - bash: |
+              ls -aln $(Pipeline.Workspace)/s
+              yarn
+              yarn run lint
+              yarn run playwright-ci
+            displayName: "Multiline Playwright Commands"
+            workingDirectory: "$(Pipeline.Workspace)/s/website/playwright"
