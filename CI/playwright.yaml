@@ -80,9 +80,12 @@ stages:
           - bash: |
               which bash
               echo Hello ${helloName}
+              echo \$(ONETIME_TEST_USER_EMAIL): $(ONETIME_TEST_USER_EMAIL)
             displayName: "Multiline Bash Commands"
             env:
               helloName: Playwright
+              ONETIME_TEST_USER_EMAIL: $(ONETIME_TEST_USER_EMAIL)
+              ONETIME_TEST_USER_PASSWORD: $(ONETIME_TEST_USER_PASSWORD)
           - bash: |
               ls -aln $(Pipeline.Workspace)/s
               yarn
