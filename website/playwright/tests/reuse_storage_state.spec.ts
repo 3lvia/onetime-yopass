@@ -18,8 +18,8 @@ fs.readFile('storage_state.json', 'utf8', function (err,data) {
   console.log("TESTDATA:", data);
 });
 
-console.log(__dirname);
-console.log(path.dirname(__filename));
+console.log("__dirname:", __dirname);
+console.log("path.dirname(__filename):", path.dirname(__filename));
 
 test.use({ storageState: 'storage_state.json' });
 

@@ -1,6 +1,8 @@
 import { chromium } from '@playwright/test';
 import path from 'path';
 const fs = require('fs');
+let obj: any;
+const storageStateFileName = 'storage_state.json';
 
 async function globalSetup() {
   // console.log('Global setup....');
@@ -19,22 +21,26 @@ async function globalSetup() {
   await page.click('button#LoginFormActionButton');
   await page.waitForLoadState('networkidle');
 
-  await page.context().storageState({ path: 'storage_state.json' });
+  await page.context().storageState({ path: storageStateFileName });
 
   fs.readdirSync('.').forEach((file: any) => {
-    console.log("FILE:", file);
+    console.log("Current Directory Files:", file);
   });
 
   // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
-  fs.readFile('storage_state.json', 'utf8', function (err,data) {
+  // https://stackoverflow.com/a/10011174
+  fs.readFile(storageStateFileName, 'utf8', function (err, data) {
     if (err) {
-      return console.log(err);
+      return console.log("ReadFile Error:",err);
     }
-    console.log("DATA:", data);
+    console.log(data)
+    obj = JSON.parse(data)
+    console.log("Cookies:", obj["cookies"][0].name)
+    console.log("Cookies:", obj["cookies"][0].expires)
   });
 
-  console.log(__dirname);
-  console.log(path.dirname(__filename));
+  console.log("__dirname:", __dirname);
+  console.log("path.dirname(__filename):", path.dirname(__filename));
 
   // const cookies = await page.context().cookies();
   // const cookieJson = JSON.stringify(cookies);
