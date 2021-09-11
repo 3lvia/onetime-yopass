@@ -38,6 +38,11 @@ test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.waitForLoadState('networkidle');
 
+  console.log("Running reuse_storage_state test....")
+  console.log('process.cwd():', process.cwd());
+  console.log('__dirname:', __dirname);
+  console.log('path.dirname(__filename):', path.dirname(__filename));
+
   const signInOrSignOutButtonTitle = page.locator(
     'button#signInOrSignOutButton',
   );
