@@ -2,8 +2,8 @@ import { chromium } from '@playwright/test';
 import path from 'path';
 const fs = require('fs');
 let jsonObject: any;
-// const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
-const storageStateFilePath = 'storage_state.json';
+const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
+// const storageStateFilePath = 'storage_state.json';
 
 async function globalSetup() {
   // console.log('Global setup....');
@@ -26,23 +26,23 @@ async function globalSetup() {
 
   fs.readdirSync(process.cwd()).forEach((file: any) => {
     var fileSizeInBytes = fs.statSync(file).size;
-    console.log('File ', file, ' has ', fileSizeInBytes, ' bytes.');
+    console.log('GS: File ', file, ' has ', fileSizeInBytes, ' bytes.');
   });
 
-  console.log('process.cwd():', process.cwd());
-  console.log('__dirname:', __dirname);
-  console.log('path.dirname(__filename):', path.dirname(__filename));
+  console.log('GS: process.cwd():', process.cwd());
+  console.log('GS: __dirname:', __dirname);
+  console.log('GS: path.dirname(__filename):', path.dirname(__filename));
 
   // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
   // https://stackoverflow.com/a/10011174
   fs.readFile(storageStateFilePath, 'utf8', function (err, data) {
     if (err) {
-      return console.log('ReadFile Error:', err);
+      return console.log('GS: ReadFile Error:', err);
     }
     // console.log(data);
     jsonObject = JSON.parse(data);
-    console.log('Cookies:', jsonObject['cookies'][0].name);
-    console.log('Cookies:', jsonObject['cookies'][0].expires);
+    console.log('GS: Cookies:', jsonObject['cookies'][0].name);
+    console.log('GS: Cookies:', jsonObject['cookies'][0].expires);
   });
 
   // const cookies = await page.context().cookies();
