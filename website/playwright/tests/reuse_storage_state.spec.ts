@@ -7,21 +7,27 @@ let jsonObject: any;
 const storageStateFileName = 'storage_state.json';
 const storageStateFilePath = process.cwd() + path.sep + storageStateFileName;
 
-globalSetup();
+test.beforeAll(async () => {
+  console.log('RSS: Before All');
+  globalSetup();
+  test.use({ storageState: storageStateFilePath });
+});
 
-test.use({ storageState: storageStateFilePath });
+test.afterAll(async () => {
+  console.log('RSS: After All');
+});
 
 test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.waitForLoadState('networkidle');
 
-  console.log('GS: process.cwd():', process.cwd());
-  console.log('GS: __dirname:', __dirname);
-  console.log('GS: path.dirname(__filename):', path.dirname(__filename));
+  console.log('RSS: process.cwd():', process.cwd());
+  console.log('RSS: __dirname:', __dirname);
+  console.log('RSS: path.dirname(__filename):', path.dirname(__filename));
   fs.readdirSync(process.cwd()).forEach((file: any) => {
     var fileSizeInBytes = fs.statSync(file).size;
     if (file === storageStateFileName)
-      console.log('GS: File ', file, ' has ', fileSizeInBytes, ' bytes.');
+      console.log('RSS: File ', file, ' has ', fileSizeInBytes, ' bytes.');
   });
 
   // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
