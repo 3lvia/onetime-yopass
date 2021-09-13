@@ -4,8 +4,8 @@ import globalSetup from './browser/globalSetup';
 import path from 'path';
 const fs = require('fs');
 let jsonObject: any;
-// const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
-const storageStateFilePath = 'storage_state.json';
+const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
+// const storageStateFilePath = 'storage_state.json';
 
 globalSetup();
 
