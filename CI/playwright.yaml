@@ -93,7 +93,7 @@ stages:
               echo Hello ${playwrightName}!
               echo \$\(ONETIME_TEST_USER_EMAIL\): $(ONETIME_TEST_USER_EMAIL)
               echo \${ONETIME_TEST_USER_EMAIL}: ${ONETIME_TEST_USER_EMAIL}
-            displayName: "Multiline Bash Commands"
+            displayName: "Bash Commands"
             env:
               playwrightName: Playwright
               ONETIME_TEST_USER_EMAIL: $(ONETIME_TEST_USER_EMAIL)
@@ -103,7 +103,7 @@ stages:
           # - script: echo fs.inotify.max_user_watches=524288 | tee --append /etc/sysctl.conf && sysctl --load
           #   displayName: "Increase File Watchers"
           - task: Bash@3
-            displayName: "Multiline Playwright Commands"
+            displayName: "Playwright Commands"
             env:
               ONETIME_TEST_USER_EMAIL: $(ONETIME_TEST_USER_EMAIL)
               ONETIME_TEST_USER_PASSWORD: $(ONETIME_TEST_USER_PASSWORD)
