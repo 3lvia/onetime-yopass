@@ -81,7 +81,7 @@ stages:
       - job: "PlaywrightJob"
         displayName: "Playwright Job"
         continueOnError: true
-        container: mcr.microsoft.com/playwright:focal
+        # container: mcr.microsoft.com/playwright:focal
         steps:
           - checkout: self
             clean: true
