@@ -102,6 +102,9 @@ stages:
           # https://github.com/gatsbyjs/gatsby/issues/11406#issuecomment-458769756
           # - script: echo fs.inotify.max_user_watches=524288 | tee --append /etc/sysctl.conf && sysctl --load
           #   displayName: "Increase File Watchers"
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '16.8.0'
           - task: Bash@3
             displayName: "Playwright Commands"
             env:
