@@ -115,6 +115,9 @@ stages:
               # CHOKIDAR_USEPOLLING=1
               # https://stackoverflow.com/a/56272746
               script: |
+                npx playwright --version
+                cat /etc/*-release
+                node --version
                 ls -aln $(Pipeline.Workspace)/s
                 printenv
                 echo \$\(ONETIME_TEST_USER_EMAIL\): $(ONETIME_TEST_USER_EMAIL)
