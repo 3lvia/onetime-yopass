@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, chromium } from '@playwright/test';
 import globalSetup from './browser/globalSetup';
 // import globalTeardown from './browser/globalTeardown';
 import path from 'path';
@@ -15,19 +15,30 @@ const storageStateFilePath = process.cwd() + path.sep + storageStateFileName;
 //   console.log('RSS: After All');
 // });
 
-// test.beforeEach(async ({ page }) => {
-//   console.log('RSS: Before Each');
-//   await page.goto('http://localhost:3000/');
-//   await page.waitForLoadState('networkidle');
-// });
+// TODO: Improve this workaround.
+// TODO: Can we use global setup properly without setting it in global configuration instead of duplicating in before each function?
+test.beforeEach(async ({ page }) => {
+  console.log('RSS: Before Each');
+  await page.goto('http://localhost:3000/');
+  await page.waitForLoadState('networkidle');
+
+  await page.click('button#signInOrSignOutButton');
+  await page.click('span:has-text("Logg inn med e-post")');
+
+  await page.fill('#Email', process.env.ONETIME_TEST_USER_EMAIL);
+  await page.fill('#Password', process.env.ONETIME_TEST_USER_PASSWORD);
+
+  await page.click('button#LoginFormActionButton');
+  await page.waitForLoadState('networkidle');
+});
 
 // test.afterEach(async ({ page }) => {
 //   console.log('RSS: After Each');
 // });
 
-globalSetup();
+// globalSetup(); // Moved to another separate initial setup test.
 
-test.use({ storageState: storageStateFilePath });
+// test.use({ storageState: storageStateFilePath });
 
 test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');
