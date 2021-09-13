@@ -4,7 +4,7 @@
 
 ```bash
 yarn \
-    && yarn add --dev @playwright/test \
     && yarn run format \
-    && yarn run test
+    && yarn run lint \
+    && yarn run playwright-ci
 ```
