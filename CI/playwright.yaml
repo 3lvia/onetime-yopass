@@ -120,6 +120,7 @@ stages:
                 echo \$\(ONETIME_TEST_USER_EMAIL\): $(ONETIME_TEST_USER_EMAIL)
                 echo \${ONETIME_TEST_USER_EMAIL}: ${ONETIME_TEST_USER_EMAIL}
                 yarn
+                npx playwright install
                 yarn run lint
                 CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
           - publish: "$(Pipeline.Workspace)/s/website/playwright"
