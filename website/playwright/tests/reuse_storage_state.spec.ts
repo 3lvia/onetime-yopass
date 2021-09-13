@@ -4,8 +4,8 @@ import globalSetup from './browser/globalSetup';
 import path from 'path';
 const fs = require('fs');
 let jsonObject: any;
-const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
-// const storageStateFilePath = 'storage_state.json';
+const storageStateFileName = 'storage_state.json';
+const storageStateFilePath = process.cwd() + path.sep + storageStateFileName;
 
 globalSetup();
 
@@ -15,17 +15,17 @@ test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.waitForLoadState('networkidle');
 
+  console.log('GS: process.cwd():', process.cwd());
+  console.log('GS: __dirname:', __dirname);
+  console.log('GS: path.dirname(__filename):', path.dirname(__filename));
   fs.readdirSync(process.cwd()).forEach((file: any) => {
     var fileSizeInBytes = fs.statSync(file).size;
-    console.log('RSS: File ', file, ' has ', fileSizeInBytes, ' bytes.');
+    if (file === storageStateFileName)
+      console.log('GS: File ', file, ' has ', fileSizeInBytes, ' bytes.');
   });
 
-  console.log('RSS: Running reuse_storage_state test....');
-  console.log('RSS: process.cwd():', process.cwd());
-  console.log('RSS: __dirname:', __dirname);
-  console.log('RSS: path.dirname(__filename):', path.dirname(__filename));
-
   // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
+  // https://stackoverflow.com/a/10011174
   fs.readFile(storageStateFilePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);

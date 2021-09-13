@@ -2,12 +2,10 @@ import { chromium } from '@playwright/test';
 import path from 'path';
 const fs = require('fs');
 let jsonObject: any;
-const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
-// const storageStateFilePath = 'storage_state.json';
+const storageStateFileName = 'storage_state.json';
+const storageStateFilePath = process.cwd() + path.sep + storageStateFileName;
 
 async function globalSetup() {
-  // console.log('Global setup....');
-
   const browser = await chromium.launch();
   // const context = await browser.newContext();
   const page = await browser.newPage();
@@ -24,14 +22,14 @@ async function globalSetup() {
 
   await page.context().storageState({ path: storageStateFilePath });
 
-  fs.readdirSync(process.cwd()).forEach((file: any) => {
-    var fileSizeInBytes = fs.statSync(file).size;
-    console.log('GS: File ', file, ' has ', fileSizeInBytes, ' bytes.');
-  });
-
   console.log('GS: process.cwd():', process.cwd());
   console.log('GS: __dirname:', __dirname);
   console.log('GS: path.dirname(__filename):', path.dirname(__filename));
+  fs.readdirSync(process.cwd()).forEach((file: any) => {
+    var fileSizeInBytes = fs.statSync(file).size;
+    if (file === storageStateFileName)
+      console.log('GS: File ', file, ' has ', fileSizeInBytes, ' bytes.');
+  });
 
   // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
   // https://stackoverflow.com/a/10011174
@@ -39,7 +37,6 @@ async function globalSetup() {
     if (err) {
       return console.log('GS: ReadFile Error:', err);
     }
-    // console.log(data);
     jsonObject = JSON.parse(data);
     console.log('GS: Cookies:', jsonObject['cookies'][0].name);
     console.log('GS: Cookies:', jsonObject['cookies'][0].expires);
