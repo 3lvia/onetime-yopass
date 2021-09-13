@@ -25,7 +25,8 @@ async function globalSetup() {
   await page.context().storageState({ path: storageStateFilePath });
 
   fs.readdirSync(process.cwd()).forEach((file: any) => {
-    console.log('Current Directory Files:', file);
+    var fileSizeInBytes = fs.statSync(file).size;
+    console.log('File ', file, ' has ', fileSizeInBytes, ' bytes.');
   });
 
   console.log('process.cwd():', process.cwd());
@@ -42,8 +43,6 @@ async function globalSetup() {
     jsonObject = JSON.parse(data);
     console.log('Cookies:', jsonObject['cookies'][0].name);
     console.log('Cookies:', jsonObject['cookies'][0].expires);
-    console.log('Cookies:', jsonObject['cookies'][1].name);
-    console.log('Cookies:', jsonObject['cookies'][1].expires);
   });
 
   // const cookies = await page.context().cookies();

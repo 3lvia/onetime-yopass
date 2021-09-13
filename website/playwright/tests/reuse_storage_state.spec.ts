@@ -10,10 +10,8 @@ const storageStateFilePath = 'storage_state.json';
 globalSetup();
 
 fs.readdirSync(process.cwd()).forEach((file: any) => {
-  console.log('Current Directory File:', file);
-  var stats = fs.statSync(file);
-  var fileSizeInBytes = stats.size;
-  console.log('Current Directory File Size (Bytes):', fileSizeInBytes);
+  var fileSizeInBytes = fs.statSync(file).size;
+  console.log('File ', file, ' has ', fileSizeInBytes, ' bytes.');
 });
 
 console.log('process.cwd():', process.cwd());
@@ -28,8 +26,6 @@ fs.readFile(storageStateFilePath, 'utf8', function (err, data) {
   jsonObject = JSON.parse(data);
   console.log('Cookies:', jsonObject['cookies'][0].name);
   console.log('Cookies:', jsonObject['cookies'][0].expires);
-  console.log('Cookies:', jsonObject['cookies'][1].name);
-  console.log('Cookies:', jsonObject['cookies'][1].expires);
 });
 
 test.use({ storageState: storageStateFilePath });
