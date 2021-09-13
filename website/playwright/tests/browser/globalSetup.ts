@@ -19,6 +19,7 @@ async function globalSetup() {
 
   await page.click('button#LoginFormActionButton');
   await page.waitForLoadState('networkidle');
+  await page.screenshot({ path: 'tests/output/global_setup.png' });
 
   await page.context().storageState({ path: storageStateFilePath });
 

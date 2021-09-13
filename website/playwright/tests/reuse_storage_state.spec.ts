@@ -7,45 +7,13 @@ let jsonObject: any;
 const storageStateFileName = 'storage_state.json';
 const storageStateFilePath = process.cwd() + path.sep + storageStateFileName;
 
-// test.beforeAll(async () => {
-//   console.log('RSS: Before All');
-// });
+globalSetup();
 
-// test.afterAll(async () => {
-//   console.log('RSS: After All');
-// });
-
-// TODO: Improve this workaround.
-// TODO: Can we use global setup properly without setting it in global configuration instead of duplicating in before each function?
-// test.beforeEach(async ({ page }) => {
-//   console.log('RSS: Before Each');
-
-// });
-
-// test.afterEach(async ({ page }) => {
-//   console.log('RSS: After Each');
-// });
-
-// globalSetup(); // Moved to another separate initial setup test.
-
-// test.use({ storageState: storageStateFilePath });
+test.use({ storageState: storageStateFilePath });
 
 test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.waitForLoadState('networkidle');
-
-  // await page.click('button#signInOrSignOutButton');
-  // await page.click('span:has-text("Logg inn med e-post")');
-
-  // await page.fill('#Email', process.env.ONETIME_TEST_USER_EMAIL);
-  // await page.fill('#Password', process.env.ONETIME_TEST_USER_PASSWORD);
-
-  // await page.click('button#LoginFormActionButton');
-  // await page.waitForLoadState('networkidle');
-
-  // await page.goto('http://localhost:3000/');
-  // await page.waitForLoadState('networkidle');
-  // await page.reload();
 
   console.log('RSS: process.cwd():', process.cwd());
   console.log('RSS: __dirname:', __dirname);
