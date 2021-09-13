@@ -48,4 +48,5 @@ async function globalSetup() {
 
   await browser.close();
 }
+
 export default globalSetup;

@@ -7,15 +7,27 @@ let jsonObject: any;
 const storageStateFileName = 'storage_state.json';
 const storageStateFilePath = process.cwd() + path.sep + storageStateFileName;
 
-test.beforeAll(async () => {
-  console.log('RSS: Before All');
-  globalSetup();
-  test.use({ storageState: storageStateFilePath });
-});
+// test.beforeAll(async () => {
+//   console.log('RSS: Before All');
+// });
 
-test.afterAll(async () => {
-  console.log('RSS: After All');
-});
+// test.afterAll(async () => {
+//   console.log('RSS: After All');
+// });
+
+// test.beforeEach(async ({ page }) => {
+//   console.log('RSS: Before Each');
+//   await page.goto('http://localhost:3000/');
+//   await page.waitForLoadState('networkidle');
+// });
+
+// test.afterEach(async ({ page }) => {
+//   console.log('RSS: After Each');
+// });
+
+globalSetup();
+
+test.use({ storageState: storageStateFilePath });
 
 test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');
