@@ -9,44 +9,30 @@ const storageStateFilePath = process.cwd() + path.sep + 'storage_state.json';
 
 globalSetup();
 
-fs.readdirSync(process.cwd()).forEach((file: any) => {
-  var fileSizeInBytes = fs.statSync(file).size;
-  console.log('File ', file, ' has ', fileSizeInBytes, ' bytes.');
-});
-
-console.log('process.cwd():', process.cwd());
-console.log('__dirname:', __dirname);
-console.log('path.dirname(__filename):', path.dirname(__filename));
-
-// https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
-fs.readFile(storageStateFilePath, 'utf8', function (err, data) {
-  if (err) {
-    return console.log(err);
-  }
-  jsonObject = JSON.parse(data);
-  console.log('Cookies:', jsonObject['cookies'][0].name);
-  console.log('Cookies:', jsonObject['cookies'][0].expires);
-});
-
 test.use({ storageState: storageStateFilePath });
 
 test('reuse_storage_state', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.waitForLoadState('networkidle');
 
-  console.log('Running reuse_storage_state test....');
-  console.log('process.cwd():', process.cwd());
-  console.log('__dirname:', __dirname);
-  console.log('path.dirname(__filename):', path.dirname(__filename));
+  fs.readdirSync(process.cwd()).forEach((file: any) => {
+    var fileSizeInBytes = fs.statSync(file).size;
+    console.log('RSS: File ', file, ' has ', fileSizeInBytes, ' bytes.');
+  });
+
+  console.log('RSS: Running reuse_storage_state test....');
+  console.log('RSS: process.cwd():', process.cwd());
+  console.log('RSS: __dirname:', __dirname);
+  console.log('RSS: path.dirname(__filename):', path.dirname(__filename));
+
+  // https://nodejs.org/en/knowledge/file-system/how-to-read-files-in-nodejs/
   fs.readFile(storageStateFilePath, 'utf8', function (err, data) {
     if (err) {
       return console.log(err);
     }
     jsonObject = JSON.parse(data);
-    console.log('Cookies:', jsonObject['cookies'][0].name);
-    console.log('Cookies:', jsonObject['cookies'][0].expires);
-    console.log('Cookies:', jsonObject['cookies'][1].name);
-    console.log('Cookies:', jsonObject['cookies'][1].expires);
+    console.log('RSS: Cookies:', jsonObject['cookies'][0].name);
+    console.log('RSS: Cookies:', jsonObject['cookies'][0].expires);
   });
 
   const signInOrSignOutButtonTitle = page.locator(
