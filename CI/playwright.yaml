@@ -115,7 +115,8 @@ stages:
               # CHOKIDAR_USEPOLLING=1
               # https://stackoverflow.com/a/56272746
               script: |
-                sudo npm install --global npm@next
+                curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+                sudo apt-get install --assume-yes nodejs
                 npx playwright --version
                 cat /etc/*-release
                 node --version
