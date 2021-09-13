@@ -115,7 +115,7 @@ stages:
               # CHOKIDAR_USEPOLLING=1
               # https://stackoverflow.com/a/56272746
               script: |
-                npm install --global npm@next
+                sudo npm install --global npm@next
                 npx playwright --version
                 cat /etc/*-release
                 node --version
