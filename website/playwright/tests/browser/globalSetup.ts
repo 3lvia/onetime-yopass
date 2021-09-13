@@ -43,9 +43,9 @@ async function globalSetup() {
     console.log('GS: Cookies:', jsonObject['cookies'][0].expires);
   });
 
-  // const cookies = await page.context().cookies();
-  // const cookieJson = JSON.stringify(cookies);
-  // fs.writeFileSync('cookies.json', cookieJson);
+  const cookies = await page.context().cookies();
+  const cookieJson = JSON.stringify(cookies);
+  fs.writeFileSync('cookies.json', cookieJson);
 
   await browser.close();
 }
