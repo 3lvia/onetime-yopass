@@ -111,13 +111,15 @@ stages:
               ONETIME_TEST_USER_EMAIL: $(ONETIME_TEST_USER_EMAIL)
               ONETIME_TEST_USER_PASSWORD: $(ONETIME_TEST_USER_PASSWORD)
             inputs:
-              workingDirectory: "$(Pipeline.Workspace)/s/website/playwright"
+              workingDirectory: "$(Pipeline.Workspace)/s/website"
               targetType: "inline"
               # "Error: ENOSPC: System limit for number of file watchers reached."
               # Workaround for read-only system configuration files.
               # CHOKIDAR_USEPOLLING=1
               # https://stackoverflow.com/a/56272746
               script: |
+                sed --in-place "s|onetime.dev-elvia.io|localhost:3000|g" .env.development
+                cat --show-all .env.development
                 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
                 sudo apt-get install --assume-yes nodejs
                 set -o xtrace
@@ -133,5 +135,5 @@ stages:
                 npx playwright install
                 yarn run lint
                 CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
-          - publish: "$(Pipeline.Workspace)/s/website/playwright"
-            artifact: playwright
+          - publish: "$(Pipeline.Workspace)/s/website/playwright/tests/output"
+            artifact: playwright-tests-output
