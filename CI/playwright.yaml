@@ -118,7 +118,7 @@ stages:
               # CHOKIDAR_USEPOLLING=1
               # https://stackoverflow.com/a/56272746
               script: |
-                sed --in-place "s|onetime.dev-elvia.io|localhost:3000|g" .env.development
+                sed --in-place "s|https://onetime.dev-elvia.io|http://localhost:3000|g" .env.development
                 cat --show-all .env.development
                 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
                 sudo apt-get install --assume-yes nodejs
