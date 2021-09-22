@@ -90,19 +90,19 @@ test.describe.serial('onetime', () => {
     await page.screenshot({ path: 'tests/output/reuse_storage_state.png' });
   });
 
-  test.beforeEach(async ({ page, baseURL }) => {
-    await page.route(baseURL + '/#/secret', (route) => {
-      route.fulfill({
-        body: `{
-          expiration: '0000',
-          message: '75c3383d-a0d9-4296-8ca8-026cc2272271',
-          one_time: true,
-          access_token: '0000',
-          }`,
-      });
-    });
-    await page.goto(baseURL + '/#/');
-  });
+  // test.beforeEach(async ({ page, baseURL }) => {
+  //   await page.route(baseURL + '/#/secret', (route) => {
+  //     route.fulfill({
+  //       body: `{
+  //         expiration: '0000',
+  //         message: '75c3383d-a0d9-4296-8ca8-026cc2272271',
+  //         one_time: true,
+  //         access_token: '0000',
+  //         }`,
+  //     });
+  //   });
+  //   await page.goto(baseURL + '/#/');
+  // });
 
   test('create secret', async ({ page, baseURL }) => {
     await page.goto(baseURL + '/#/create');
