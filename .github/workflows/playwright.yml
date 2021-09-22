@@ -28,7 +28,7 @@ jobs:
           ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/;
           set +o xtrace
       - name: Display Versions
-        run: set -o xtrace; cat /etc/*-release; node --version; yarn --version; npx playwright --version; set +o xtrace
+        run: set -o xtrace; cat /etc/*-release; node --version; yarn --version; cd website; npx playwright --version; set +o xtrace
       - name: Install Dependencies
         run: cd website && yarn install
       - name: Yarn Lint
