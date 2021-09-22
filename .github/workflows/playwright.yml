@@ -40,11 +40,6 @@ jobs:
       - name: Playwright Tests
         run: |
           cd website
-          npx playwright install
-          set -o xtrace;
-          du --human-readable --summarize ${HOME}/.cache/ms-playwright/*;
-          ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/*;
-          set +o xtrace
           PLAYWRIGHT_BROWSERS_PATH=/home/runner/playwright yarn add playwright-chromium@1.15.0
           PLAYWRIGHT_BROWSERS_PATH=/home/runner/playwright yarn add playwright-webkit@1.15.0
           PLAYWRIGHT_BROWSERS_PATH=/home/runner/playwright yarn add playwright-firefox@1.15.0
@@ -52,10 +47,10 @@ jobs:
           du --human-readable --summarize ${HOME}/.cache/ms-playwright/*;
           ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/*;
           set +o xtrace
-          CHOKIDAR_USEPOLLING=1 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 PLAYWRIGHT_BROWSERS_PATH=${HOME}/.cache/ms-playwright/ yarn run playwright-ci
+          CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-          PLAYWRIGHT_BROWSERS_PATH: /home/runner/playwright
+          PLAYWRIGHT_BROWSERS_PATH: ${{ env.HOME }}/playwright
           ONETIME_TEST_USER_EMAIL: ${{ secrets.ONETIME_TEST_USER_EMAIL }}
           ONETIME_TEST_USER_PASSWORD: ${{ secrets.ONETIME_TEST_USER_PASSWORD }}
           CYPRESS_ONETIME_TEST_USER_EMAIL: ${{ secrets.CYPRESS_ONETIME_TEST_USER_EMAIL }}
