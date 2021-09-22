@@ -23,13 +23,20 @@ jobs:
           cd website
           yarn add playwright
           npx playwright install
-          PLAYWRIGHT_BROWSERS_PATH=${HOME}/playwright yarn add playwright-chromium@1.15.0
-          PLAYWRIGHT_BROWSERS_PATH=${HOME}/playwright yarn add playwright-webkit@1.15.0
-          PLAYWRIGHT_BROWSERS_PATH=${HOME}/playwright yarn add playwright-firefox@1.15.0
+          ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/
+          yarn add playwright-chromium@1.15.0
+          yarn add playwright-webkit@1.15.0
+          yarn add playwright-firefox@1.15.0
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          PLAYWRIGHT_BROWSERS_PATH: ${HOME}/playwright
       - name: Display Versions
         run: set -o xtrace; cat /etc/*-release; node --version; yarn --version; npx playwright --version; set +o xtrace
       - name: Install Dependencies
         run: cd website && yarn install
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          PLAYWRIGHT_BROWSERS_PATH: ${HOME}/playwright
       - name: Yarn Lint
         run: cd website && yarn run lint
       # "Error: ENOSPC: System limit for number of file watchers reached."
@@ -38,10 +45,12 @@ jobs:
       # https://stackoverflow.com/a/56272746
       - name: Playwright Tests
         run: |
+          ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/
           cd website
           CHOKIDAR_USEPOLLING=1 PLAYWRIGHT_BROWSERS_PATH=${HOME}/playwright yarn run playwright-ci
         env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          PLAYWRIGHT_BROWSERS_PATH: ${HOME}/playwright
           ONETIME_TEST_USER_EMAIL: ${{ secrets.ONETIME_TEST_USER_EMAIL }}
           ONETIME_TEST_USER_PASSWORD: ${{ secrets.ONETIME_TEST_USER_PASSWORD }}
           CYPRESS_ONETIME_TEST_USER_EMAIL: ${{ secrets.CYPRESS_ONETIME_TEST_USER_EMAIL }}
