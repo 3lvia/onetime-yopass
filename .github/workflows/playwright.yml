@@ -2,7 +2,7 @@ name: Playwright
 on: [push, pull_request]
 jobs:
   jobId:
-    name: Tests
+    name: "Playwright Job"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -24,8 +24,8 @@ jobs:
           cd website;
           yarn add playwright;
           npx playwright install;
-          du --human-readable --summarize /home/runner/.cache/ms-playwright/;
-          ls --all --numeric --literal --human-readable /home/runner/.cache/ms-playwright/;
+          du --human-readable --summarize ${HOME}/.cache/ms-playwright/;
+          ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/;
           set +o xtrace
       - name: Display Versions
         run: set -o xtrace; cat /etc/*-release; node --version; yarn --version; npx playwright --version; set +o xtrace
@@ -41,12 +41,21 @@ jobs:
         run: |
           cd website
           npx playwright install
-          du --human-readable --summarize ${HOME}/.cache/ms-playwright/*
-          ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/
-          CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
+          set -o xtrace;
+          du --human-readable --summarize ${HOME}/.cache/ms-playwright/*;
+          ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/*;
+          set +o xtrace
+          PLAYWRIGHT_BROWSERS_PATH=/home/runner/playwright yarn add playwright-chromium@1.15.0
+          PLAYWRIGHT_BROWSERS_PATH=/home/runner/playwright yarn add playwright-webkit@1.15.0
+          PLAYWRIGHT_BROWSERS_PATH=/home/runner/playwright yarn add playwright-firefox@1.15.0
+          set -o xtrace;
+          du --human-readable --summarize ${HOME}/.cache/ms-playwright/*;
+          ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/*;
+          set +o xtrace
+          CHOKIDAR_USEPOLLING=1 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 PLAYWRIGHT_BROWSERS_PATH=${HOME}/.cache/ms-playwright/ yarn run playwright-ci
         env:
-          # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-          # PLAYWRIGHT_BROWSERS_PATH: ${{GITHUB_WORKSPACE}}/playwright
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          PLAYWRIGHT_BROWSERS_PATH: /home/runner/playwright
           ONETIME_TEST_USER_EMAIL: ${{ secrets.ONETIME_TEST_USER_EMAIL }}
           ONETIME_TEST_USER_PASSWORD: ${{ secrets.ONETIME_TEST_USER_PASSWORD }}
           CYPRESS_ONETIME_TEST_USER_EMAIL: ${{ secrets.CYPRESS_ONETIME_TEST_USER_EMAIL }}
