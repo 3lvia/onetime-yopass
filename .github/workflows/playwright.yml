@@ -23,7 +23,7 @@ jobs:
           cd website
           yarn add playwright
           npx playwright install
-          du --human-readable --summarize ${HOME}/.cache/ms-playwright/
+          du --human-readable --summarize ${HOME}/.cache/ms-playwright/*
           ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/
       - name: Display Versions
         run: set -o xtrace; cat /etc/*-release; node --version; yarn --version; npx playwright --version; set +o xtrace
@@ -38,6 +38,9 @@ jobs:
       - name: Playwright Tests
         run: |
           cd website
+          npx playwright install
+          du --human-readable --summarize ${HOME}/.cache/ms-playwright/*
+          ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/
           CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
         env:
           # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
