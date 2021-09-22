@@ -20,11 +20,13 @@ jobs:
       # https://gkushang.medium.com/playwright-failed-to-launch-browsers-how-to-solve-8b01d03fe5b9
       - name: Install Playwright
         run: |
+          set -o xtrace
           cd website
           yarn add playwright
           npx playwright install
           du --human-readable --summarize ${HOME}/.cache/ms-playwright/*
           ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/
+          set +o xtrace
       - name: Display Versions
         run: set -o xtrace; cat /etc/*-release; node --version; yarn --version; npx playwright --version; set +o xtrace
       - name: Install Dependencies
