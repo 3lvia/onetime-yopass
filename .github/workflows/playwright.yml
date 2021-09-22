@@ -46,6 +46,7 @@ jobs:
           set -o xtrace;
           du --human-readable --summarize ${HOME}/.cache/ms-playwright/*;
           ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/*;
+          cat --show-all .env.development
           set +o xtrace
           CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
         env:
