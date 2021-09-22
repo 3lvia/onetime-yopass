@@ -38,10 +38,10 @@
     "start-server": "REACT_APP_BACKEND_URL='http://localhost:1337' yarn start",
     "start": "react-scripts start",
     "test": "cypress test",
-    "playwright-test": "cd playwright && PLAYWRIGHT_BROWSERS_PATH=${HOME}/.cache/ms-playwright/ npx playwright install && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 PLAYWRIGHT_BROWSERS_PATH=${HOME}/.cache/ms-playwright/ npx playwright test"
+    "playwright-test": "cd playwright && npx playwright install && npx playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.15.0",
+    "@playwright/test": "1.14.1",
     "@types/file-saver": "^2.0.3",
     "@types/jest": "^27.0.1",
     "@types/mocha": "^9.0.0",
@@ -55,9 +55,9 @@
     "cypress-file-upload": "^5.0.8",
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.24.2",
-    "playwright-chromium": "^1.15.0",
-    "playwright-firefox": "^1.15.0",
-    "playwright-webkit": "^1.15.0",
+    "playwright-chromium": "1.14.1",
+    "playwright-firefox": "1.14.1",
+    "playwright-webkit": "1.14.1",
     "prettier": "^2.4.1",
     "start-server-and-test": "^1.14.0",
     "typescript": "^4.3.5"

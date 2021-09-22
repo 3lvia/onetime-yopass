@@ -50,8 +50,8 @@ jobs:
           set +o xtrace
           CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
         env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-          PLAYWRIGHT_BROWSERS_PATH: ${{ env.HOME }}/playwright
+          # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          # PLAYWRIGHT_BROWSERS_PATH: ${{ env.HOME }}/playwright
           ONETIME_TEST_USER_EMAIL: ${{ secrets.ONETIME_TEST_USER_EMAIL }}
           ONETIME_TEST_USER_PASSWORD: ${{ secrets.ONETIME_TEST_USER_PASSWORD }}
           CYPRESS_ONETIME_TEST_USER_EMAIL: ${{ secrets.CYPRESS_ONETIME_TEST_USER_EMAIL }}
