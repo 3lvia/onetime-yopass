@@ -6,6 +6,16 @@ The UI component for [yopass](https://github.com/3lvia/onetime-yopass)
 
 ## Local Playwright Automatic Tests
 
+- The following dependencies _must_ have the same version.
+
+```bash
+yarn add --dev \
+    playwright-chromium \
+    playwright-firefox \
+    playwright-webkit \
+    @playwright/test
+```
+
 ```bash
 # DO NOT COMMIT THIS CHANGE
 sed \
