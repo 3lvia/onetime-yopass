@@ -16,7 +16,7 @@ jobs:
           - 11211:11211
     env:
       MEMCACHED: localhost:11211
-      REDIS_URL: "localhost:6379/0"
+      REDIS_URL: localhost:6379
     steps:
       - name: Set up Go
         uses: actions/setup-go@v3
