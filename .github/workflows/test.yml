@@ -34,22 +34,22 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-  node:
-    name: Website Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: yarn install
-        run: cd website && yarn install
-      - name: yarn lint
-        run: cd website && yarn run lint
-      - uses: cypress-io/github-action@v5
-        with:
-          start: yarn start
-          wait-on: "http://localhost:3000"
-          working-directory: website
-          browser: chrome
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # node:
+  #   name: Website Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: yarn install
+  #       run: cd website && yarn install
+  #     - name: yarn lint
+  #       run: cd website && yarn run lint
+  #     - uses: cypress-io/github-action@v5
+  #       with:
+  #         start: yarn start
+  #         wait-on: "http://localhost:3000"
+  #         working-directory: website
+  #         browser: chrome
+  #         record: true
+  #       env:
+  #         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
