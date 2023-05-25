@@ -46,7 +46,7 @@ func (r *Redis) Get(ctx context.Context, key string) (yopass.Secret, error) {
 	}
 
 	if s.OneTime {
-		if err := r.Delete(ctx, key); err != nil {
+		if err := r.client.Del(ctx, key).Err(); err != nil {
 			return s, err
 		}
 	}

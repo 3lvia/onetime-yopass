@@ -98,7 +98,7 @@ func (y *Server) createSecret(w http.ResponseWriter, request *http.Request) {
 	key := uuidVal.String()
 
 	// store secret in memcache with specified expiration.
-	if err := y.db.Put(key, s); err != nil {
+	if err := y.db.Put(request.Context(), key, s); err != nil {
 		y.logger.Error("Unable to store secret", zap.Error(err))
 		http.Error(w, `{"message": "Failed to store secret in database."}`, http.StatusInternalServerError)
 		return
@@ -144,7 +144,7 @@ func (y *Server) getSecret(w http.ResponseWriter, request *http.Request) {
 func (y *Server) deleteSecret(w http.ResponseWriter, request *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	deleted, err := y.db.Delete(mux.Vars(request)["key"])
+	deleted, err := y.db.Delete(request.Context(), mux.Vars(request)["key"])
 	if err != nil {
 		http.Error(w, `{"message": "Failed to delete secret"}`, http.StatusInternalServerError)
 		return

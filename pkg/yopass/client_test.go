@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"go.uber.org/zap/zaptest"
 	"net/http/httptest"
 	"testing"
 
@@ -14,7 +15,7 @@ import (
 
 func TestFetch(t *testing.T) {
 	db := testDB(map[string]string{})
-	y := server.New(&db, 1024, prometheus.NewRegistry(), false)
+	y := server.New(&db, 1024, prometheus.NewRegistry(), false, zaptest.NewLogger(t))
 	ts := httptest.NewServer(y.HTTPHandler())
 	defer ts.Close()
 
@@ -46,7 +47,7 @@ func TestFetchInvalidServer(t *testing.T) {
 }
 func ToDoFixTestStore(t *testing.T) {
 	db := testDB(map[string]string{})
-	y := server.New(&db, 1024, prometheus.NewRegistry(), false)
+	y := server.New(&db, 1024, prometheus.NewRegistry(), false, zaptest.NewLogger(t))
 	ts := httptest.NewServer(y.HTTPHandler())
 	defer ts.Close()
 
@@ -81,7 +82,7 @@ func (db *testDB) Put(context context.Context, key string, secret yopass.Secret)
 	return nil
 }
 
-func (db *testDB) Delete(context context.Context, key string) error {
+func (db *testDB) Delete(context context.Context, key string) (bool, error) {
 	delete((map[string]string(*db)), key)
-	return nil
+	return true, nil
 }

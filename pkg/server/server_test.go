@@ -13,6 +13,7 @@ import (
 	"github.com/3lvia/onetime-yopass/pkg/yopass"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/testutil"
+	"go.uber.org/zap/zaptest"
 )
 
 type mockDB struct{}
@@ -23,8 +24,8 @@ func (db *mockDB) Get(context context.Context, key string) (yopass.Secret, error
 func (db *mockDB) Put(context context.Context, key string, secret yopass.Secret) error {
 	return nil
 }
-func (db *mockDB) Delete(context context.Context, key string) error {
-	return nil
+func (db *mockDB) Delete(context context.Context, key string) (bool, error) {
+	return true, nil
 }
 
 type brokenDB struct{}
@@ -35,8 +36,8 @@ func (db *brokenDB) Get(context context.Context, key string) (yopass.Secret, err
 func (db *brokenDB) Put(context context.Context, key string, secret yopass.Secret) error {
 	return fmt.Errorf("Some error")
 }
-func (db *brokenDB) Delete(context context.Context, key string) error {
-	return fmt.Errorf("Some error")
+func (db *brokenDB) Delete(context context.Context, key string) (bool, error) {
+	return false, fmt.Errorf("Some error")
 }
 
 type mockBrokenDB2 struct{}
@@ -47,8 +48,8 @@ func (db *mockBrokenDB2) Get(key string) (yopass.Secret, error) {
 func (db *mockBrokenDB2) Put(key string, secret yopass.Secret) error {
 	return fmt.Errorf("Some error")
 }
-func (db *mockBrokenDB2) Delete(key string) error {
-	return fmt.Errorf("Some error")
+func (db *mockBrokenDB2) Delete(key string) (bool, error) {
+	return false, nil
 }
 
 func TestCreateSecret(t *testing.T) {
@@ -72,7 +73,7 @@ func TestCreateSecret(t *testing.T) {
 			name:       "InvalidJson",
 			statusCode: 400,
 			body:       strings.NewReader(`{fooo`),
-			output:     "Unable to parse JSON data.",
+			output:     "Unable to parse json",
 			db:         &mockDB{},
 		},
 		{
@@ -107,7 +108,7 @@ func TestCreateSecret(t *testing.T) {
 		t.Run(fmt.Sprintf(tc.name), func(t *testing.T) {
 			req, _ := http.NewRequest("POST", "/secret", tc.body)
 			rr := httptest.NewRecorder()
-			y := New(tc.db, tc.maxLength, prometheus.NewRegistry(), false)
+			y := New(tc.db, tc.maxLength, prometheus.NewRegistry(), false, zaptest.NewLogger(t))
 			y.createSecret(rr, req)
 			var s yopass.Secret
 			json.Unmarshal(rr.Body.Bytes(), &s)
@@ -164,7 +165,7 @@ func TestOneTimeEnforcement(t *testing.T) {
 		t.Run(fmt.Sprintf(tc.name), func(t *testing.T) {
 			req, _ := http.NewRequest("POST", "/secret", tc.body)
 			rr := httptest.NewRecorder()
-			y := New(&mockDB{}, 100, prometheus.NewRegistry(), tc.requireOneTime)
+			y := New(&mockDB{}, 100, prometheus.NewRegistry(), tc.requireOneTime, zaptest.NewLogger(t))
 			y.createSecret(rr, req)
 			var s yopass.Secret
 			json.Unmarshal(rr.Body.Bytes(), &s)
@@ -196,7 +197,7 @@ func TestGetSecret(t *testing.T) {
 		{
 			name:       "SecretNotFound",
 			statusCode: 404,
-			output:     "Secret not found.",
+			output:     "Secret not found",
 			db:         &brokenDB{},
 		},
 	}
@@ -208,7 +209,7 @@ func TestGetSecret(t *testing.T) {
 				t.Fatal(err)
 			}
 			rr := httptest.NewRecorder()
-			y := New(tc.db, 1, prometheus.NewRegistry(), false)
+			y := New(tc.db, 1, prometheus.NewRegistry(), false, zaptest.NewLogger(t))
 			y.getSecret(rr, req)
 			var s yopass.Secret
 			json.Unmarshal(rr.Body.Bytes(), &s)
@@ -236,7 +237,7 @@ func TestMetrics(t *testing.T) {
 			path:   "/secret/invalid-key-format",
 		},
 	}
-	y := New(&mockDB{}, 1, prometheus.NewRegistry(), false)
+	y := New(&mockDB{}, 1, prometheus.NewRegistry(), false, zaptest.NewLogger(t))
 	h := y.HTTPHandler()
 
 	for _, r := range requests {
@@ -288,7 +289,7 @@ func TestSecurityHeaders(t *testing.T) {
 		{
 			scheme: "http",
 			headers: map[string]string{
-				"content-security-policy": "default-src 'self' https://cdn.elvia.io https://elvid.test-elvia.io https://elvid.elvia.io; font-src https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://storage.googleapis.com https://cdn.elvia.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.elvia.io",
+				"content-security-policy": "default-src 'self' https://cdn.elvia.io https://elvid.test-elvia.io https://elvid.elvia.io; font-src https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://storage.googleapis.com https://cdn.elvia.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.elvia.io; frame-src 'self' https://elvid.test-elvia.io https://elvid.elvia.io",
 				"referrer-policy":         "no-referrer",
 				"x-content-type-options":  "nosniff",
 				"x-frame-options":         "DENY",
@@ -299,7 +300,7 @@ func TestSecurityHeaders(t *testing.T) {
 		{
 			scheme: "https",
 			headers: map[string]string{
-				"content-security-policy":   "default-src 'self' https://cdn.elvia.io https://elvid.test-elvia.io https://elvid.elvia.io; font-src https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://storage.googleapis.com https://cdn.elvia.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.elvia.io",
+				"content-security-policy":   "default-src 'self' https://cdn.elvia.io https://elvid.test-elvia.io https://elvid.elvia.io; font-src https://fonts.gstatic.com; form-action 'self'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://storage.googleapis.com https://cdn.elvia.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.elvia.io; frame-src 'self' https://elvid.test-elvia.io https://elvid.elvia.io",
 				"referrer-policy":           "no-referrer",
 				"strict-transport-security": "max-age=31536000",
 				"x-content-type-options":    "nosniff",
@@ -309,7 +310,7 @@ func TestSecurityHeaders(t *testing.T) {
 		},
 	}
 
-	y := New(&mockDB{}, 1, prometheus.NewRegistry(), false)
+	y := New(&mockDB{}, 1, prometheus.NewRegistry(), false, zaptest.NewLogger(t))
 	h := y.HTTPHandler()
 
 	t.Parallel()

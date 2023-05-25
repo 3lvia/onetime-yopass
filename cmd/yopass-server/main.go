@@ -46,10 +46,9 @@ func init() {
 }
 
 func main() {
-	var (
-		db    server.Database
-		dbLog string
-	)
+	logger := configureZapLogger()
+
+	var db server.Database
 	vault, err := vault.New()
 	if err != nil {
 		log.Fatal(err)
@@ -65,7 +64,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("invalid Redis URL: %v", err)
 	}
-	dbLog = fmt.Sprintf("configured Redis URL: %s", redisHostname)
 
 	registry := prometheus.NewRegistry()
 	registry.MustRegister(prometheus.NewProcessCollector(prometheus.ProcessCollectorOpts{}))
@@ -90,7 +88,7 @@ func main() {
 		}()
 	}
 
-	err := <-errc
+	err = <-errc
 	logger.Fatal("yopass stopped unexpectedly", zap.Error(err))
 }
 

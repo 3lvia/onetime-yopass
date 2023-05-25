@@ -32,7 +32,7 @@ func (m *Memcached) Get(ctx context.Context, key string) (yopass.Secret, error) 
 	}
 
 	if s.OneTime {
-		if err := m.Delete(ctx, key); err != nil {
+		if err := m.Client.Delete(key); err != nil {
 			return s, err
 		}
 	}
