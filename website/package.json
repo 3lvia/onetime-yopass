@@ -37,7 +37,7 @@
     "lint": "prettier --ignore-path .gitignore --check .",
     "playwright-ci": "BROWSER=none start-server-and-test 'yarn start-server' http://localhost:3000 'yarn playwright-test'",
     "start-server": "REACT_APP_BACKEND_URL='http://localhost:1337' yarn start",
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "test": "cypress test",
     "playwright-test": "cd playwright && npx playwright test"
   },
