@@ -9,7 +9,7 @@ import Result from '../displaySecret/Result';
 import { randomString, uploadFile } from '../utils/utils';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 import { useAuth } from 'oidc-react';
 
 const Upload = () => {

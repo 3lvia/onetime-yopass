@@ -1,12 +1,4 @@
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  makeStyles,
-  Link,
-} from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, Box, Link } from '@mui/material';
 import { useAuth } from 'oidc-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
