@@ -26,6 +26,7 @@ jobs:
           npx playwright install;
           du --human-readable --summarize ${HOME}/.cache/ms-playwright/;
           ls --all --numeric --literal --human-readable ${HOME}/.cache/ms-playwright/;
+          npm install -D @playwright/test
           set +o xtrace;
       - name: Display Versions
         run: |
