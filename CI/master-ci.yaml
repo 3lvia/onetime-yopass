@@ -27,6 +27,7 @@ stages:
       - template: build.yaml@templates
         parameters:
           dockerfile: Dockerfile.dev
+          pushImageOnPR: true
 
   - stage: DeployDev
     dependsOn: [BuildDev]
@@ -38,7 +39,7 @@ stages:
           elvidAuthority: "elvid.test-elvia.io"
           elvidClientId: "63db1528-e12a-455e-ad21-2bf929692c5d"
           elvidScope: "ad_groups email onetime.useraccess openid profile"
-          
+
   - stage: BuildTest
     dependsOn: []
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
