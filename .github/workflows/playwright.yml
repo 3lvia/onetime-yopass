@@ -49,7 +49,8 @@ jobs:
         run: |
           go run ./cmd/yopass-server/ &
           cd website
-          CHOKIDAR_USEPOLLING=1 yarn run playwright-ci
+          yarn run start&
+          CHOKIDAR_USEPOLLING=1 yarn run playwright-test
           kill %go
         env:
           GITHUB_TOKEN: ${{ secrets.ONETIME_GITHUB_PERSONAL_ACCESS_TOKEN_READ_ORG_SCOPE }}
