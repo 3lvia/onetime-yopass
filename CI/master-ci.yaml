@@ -1,6 +1,8 @@
 ---
 trigger:
-  - master
+  branches:
+    include:
+      - "*"
 
 pool:
   vmImage: "ubuntu-latest"
@@ -27,6 +29,7 @@ stages:
       - template: build.yaml@templates
         parameters:
           dockerfile: Dockerfile.dev
+          pushImageOnPR: true
 
   - stage: DeployDev
     dependsOn: [BuildDev]
