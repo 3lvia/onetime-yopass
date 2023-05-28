@@ -3,6 +3,7 @@ import { useForm, Controller, Control } from 'react-hook-form';
 import randomString, { encryptMessage, postSecret } from '../utils/utils';
 import { useEffect, useState } from 'react';
 import Result from '../displaySecret/Result';
+import Expiration from './../shared/Expiration';
 import {
   Alert,
   TextField,
@@ -166,6 +167,9 @@ const CreateSecret = () => {
               />
             )}
           />
+          <Grid container justifyContent="center" marginTop={2}>
+            <Expiration control={control} />
+          </Grid>
           <Grid container justifyContent="center">
             <Box p={2} pb={4}>
               <Button
