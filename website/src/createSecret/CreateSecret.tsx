@@ -121,13 +121,7 @@ const CreateSecret = () => {
   });
 
   if (result.uuid) {
-    var p = result.password
-    var u = result.uuid
-    setResult({
-      password: '',
-      uuid: '',
-    });
-    return <Result password={p} uuid={u} prefix="s" />;
+    return <Result password={result.password} uuid={result.uuid} prefix="s" resetFunc={() => setResult({password: '',uuid: ''})} />;
   }
 
   return (
