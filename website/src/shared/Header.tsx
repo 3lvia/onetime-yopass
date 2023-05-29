@@ -96,7 +96,7 @@ export const Header = () => {
               width="80"
               height="40"
               alt=""
-              src="https://cdn.elvia.io/npm/elvis-assets-trademark-1.0.2/dist/logo/default/elvia_charge.svg"
+              src="blob:https://design.elvia.io/e15b6f01-6fa2-48c3-9126-8fe4c8f1695b"
             />
           </Typography>
         </Link>
