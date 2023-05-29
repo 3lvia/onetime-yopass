@@ -134,7 +134,7 @@ const Upload = () => {
   });
 
   if (result.uuid) {
-    return <Result uuid={result.uuid} password={result.password} prefix="f" />;
+    return <Result uuid={result.uuid} password={result.password} prefix="f" resetFunc={() => setResult({password: '',uuid: ''})} />;
   }
   return (
     <Grid>
