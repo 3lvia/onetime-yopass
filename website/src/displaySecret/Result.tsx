@@ -17,17 +17,15 @@ type ResultProps = {
   readonly uuid: string;
   readonly password: string;
   readonly prefix: 's' | 'f';
-  readonly resetFunc: () => void
 };
 
-const Result = ({ uuid, password, prefix, resetFunc }: ResultProps) => {
+const Result = ({ uuid, password, prefix }: ResultProps) => {
   const base =
     (process.env.PUBLIC_URL ||
       `${window.location.protocol}//${window.location.host}`) + `/#/${prefix}`;
   const short = `${base}/${uuid}`;
   const full = `${short}/${password}`;
   const { t } = useTranslation();
-  resetFunc();
 
   return (
     <Box>
