@@ -12,7 +12,7 @@
     "@mui/styles": "^5.13.2",
     "file-saver": "2.0.5",
     "i18next": "22.5.0",
-    "i18next-browser-languagedetector": "7.0.1",
+    "i18next-browser-languagedetector": "7.0.2",
     "i18next-http-backend": "2.2.1",
     "oidc-react": "3.2.0",
     "openpgp": "5.9.0",
