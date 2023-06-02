@@ -7,8 +7,6 @@ import { Routes } from './Routes';
 // import { Features } from './shared/Features';
 // import { Attribution } from './shared/Attribution';
 import { theme } from './theme';
-import { AuthProvider } from 'oidc-react';
-import { OidcConfiguration } from './oidc/OidcConfiguration';
 
 if (process.env.NODE_ENV !== 'production') {
   console.log('App in non-production mode!');
@@ -34,16 +32,10 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <AuthProvider {...OidcConfiguration}>
-          <Header />
-          <Container maxWidth={'lg'}>
-            <Routes />
-            {/*
-            <Features />
-            <Attribution />
-            */}
-          </Container>
-        </AuthProvider>
+        <Header />
+        <Container maxWidth={'lg'}>
+          <Routes />
+        </Container>
       </Router>
     </ThemeProvider>
   );

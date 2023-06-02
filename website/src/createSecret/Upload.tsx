@@ -1,7 +1,7 @@
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { encrypt, createMessage } from 'openpgp';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Error } from './CreateSecret';
 import Expiration from './../shared/Expiration';
@@ -31,43 +31,6 @@ const Upload = () => {
   });
 
   var auth = useAuth();
-
-  var isUserLoggedOut = !auth?.userData;
-
-  var username = auth?.userData?.profile?.username;
-  console.log(username);
-
-  var signIn = () => {
-    if (!auth) {
-      console.error('Unknown sign-in error.');
-      return;
-    }
-
-    // var login = isUserLoggedOut ? auth.signIn : auth.signOut;
-    var login = auth.signIn;
-
-    login().then(console.log).catch(console.error);
-  };
-
-  // If you’re familiar with React class lifecycle methods,
-  // you can think of useEffect Hook as
-  // componentDidMount, componentDidUpdate, and componentWillUnmount combined.
-  // https://reactjs.org/docs/hooks-effect.html
-  useEffect(() => {
-    if (isUserLoggedOut) {
-      console.log('User logged out!');
-      return signIn();
-    } else {
-      console.log('User logged in....');
-    }
-
-    if (auth?.userData?.expired === true) {
-      console.log('Access token expired!');
-      auth.userManager.signinSilent().then(console.log).catch(console.error);
-    } else {
-      console.log('Access token not expired....');
-    }
-  });
 
   const form = watch();
   const onDrop = useCallback(
@@ -149,18 +112,16 @@ const Upload = () => {
             <Typography variant="h4">{t('upload.title')}</Typography>
           </Grid>
 
-          {!isUserLoggedOut && (
-            <Typography
-              data-test-id="userEmail"
-              align="center"
-              style={{
-                fontFamily: 'Red Hat Text, sans-serif',
-                padding: '.5em 0em',
-              }}
-            >
-              {auth.userData?.profile.email}
-            </Typography>
-          )}
+          <Typography
+            data-test-id="userEmail"
+            align="center"
+            style={{
+              fontFamily: 'Red Hat Text, sans-serif',
+              padding: '.5em 0em',
+            }}
+          >
+            {auth.userData?.profile.email}
+          </Typography>
 
           <Grid container justifyContent="center">
             <Typography variant="caption" display="block">
