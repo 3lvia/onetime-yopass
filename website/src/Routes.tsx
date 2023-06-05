@@ -18,7 +18,11 @@ export const Routes = () => {
           </AuthProvider>
         }
       />
-      <Route path="/blank" element={<Blank />} />
+      <Route path="/blank" element={
+          <AuthProvider {...OidcConfiguration}>
+            <Blank />
+          </AuthProvider>
+        } />
       <Route
         path="/create"
         element={

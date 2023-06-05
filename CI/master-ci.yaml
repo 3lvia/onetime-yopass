@@ -22,12 +22,17 @@ stages:
   - stage: BuildDev
     dependsOn: []
     variables:
-      imageTag: dev-$(Build.BuildNumber)
+    - group: vault_default_approle
+    - name: imageTag
+      value: dev-$(Build.BuildNumber)
     jobs:
       - template: build.yaml@templates
         parameters:
           dockerfile: Dockerfile.dev
           pushImageOnPR: true
+      - template: smoketests-with-playwright.yaml
+        parameters:
+          environment: dev
 
   - stage: DeployDev
     dependsOn: [BuildDev]
