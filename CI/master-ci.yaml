@@ -22,20 +22,17 @@ stages:
   - stage: BuildDev
     dependsOn: []
     variables:
-    - group: vault_default_approle
-    - name: imageTag
-      value: dev-$(Build.BuildNumber)
+      imageTag: dev-$(Build.BuildNumber)
     jobs:
       - template: build.yaml@templates
         parameters:
           dockerfile: Dockerfile.dev
           pushImageOnPR: true
-      - template: smoketests-with-playwright.yaml
-        parameters:
-          environment: dev
 
   - stage: DeployDev
     dependsOn: [BuildDev]
+    variables:
+    - group: vault_elvid_dev
     jobs:
       - template: templates/deploy.yaml
         parameters:
@@ -44,6 +41,9 @@ stages:
           elvidAuthority: "elvid.test-elvia.io"
           elvidClientId: "63db1528-e12a-455e-ad21-2bf929692c5d"
           elvidScope: "ad_groups email onetime.useraccess openid profile"
+      - template: smoketests-with-playwright.yaml
+        parameters:
+          environment: dev
           
   - stage: BuildTest
     dependsOn: []
