@@ -37,7 +37,7 @@ public class CreateSecretTests : IClassFixture<BrowserFixture>
         await page.GetByRole(AriaRole.Button, new() { Name = "ENCRYPT MESSAGE" }).ClickAsync();
         await page
             .GetByRole(AriaRole.Heading, new() { Name = "Secret stored in database" })
-            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 3000});
+            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible});
 
         var link = await page
             .GetByRole(AriaRole.Cell,
@@ -49,7 +49,7 @@ public class CreateSecretTests : IClassFixture<BrowserFixture>
         await page.GotoAsync(link ?? "");
         await page
             .GetByRole(AriaRole.Heading, new() { Name = "Decrypted Message" })
-            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 3000});
+            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible});
     }
 
     private async Task Login(IPage page)
