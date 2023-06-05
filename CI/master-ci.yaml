@@ -32,7 +32,7 @@ stages:
   - stage: DeployDev
     dependsOn: [BuildDev]
     variables:
-    - group: vault_elvid_dev
+    - group: vault_default_approle
     jobs:
       - template: templates/deploy.yaml
         parameters:
