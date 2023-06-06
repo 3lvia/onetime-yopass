@@ -25,8 +25,8 @@ public class CreateSecretTests : IClassFixture<BrowserFixture>
 
     [Theory]
     [InlineData(Browser.Firefox)] 
-    // [InlineData(Browser.Chromium)] // does not work, although it works in debug mode
-    // [InlineData(Browser.Webkit)] // works some times only
+    [InlineData(Browser.Chromium)] // does not work, although it works in debug mode
+    [InlineData(Browser.Webkit)] // works some times only
     public async Task CreateSecret(Browser browser)
     {
         var page = await OpenBrowserPage(browser);
@@ -55,18 +55,16 @@ public class CreateSecretTests : IClassFixture<BrowserFixture>
     private async Task Login(IPage page)
     {
         await page.GotoAsync($"{_onetimeBaseUrl}");
-        await page.WaitForURLAsync($"{_elvidBaseUrl}/Account/Login**",
-            new PageWaitForURLOptions { Timeout = 3000 });
+        await page.WaitForURLAsync($"{_elvidBaseUrl}/Account/Login**");
         await page.GetByRole(AriaRole.Button, new() { Name = "Logg inn med e-post" }).ClickAsync();
         await page.GetByPlaceholder("Skriv inn e-post").FillAsync(_testFixture.LocalTestUserUsername);
         await page.GetByPlaceholder("Skriv inn passord").FillAsync(_testFixture.LocalTestUserPassword);
         await page.GetByRole(AriaRole.Button, new() { Name = "Logg inn med e-post" }).ClickAsync();
 
-        await page.WaitForURLAsync($"{_onetimeBaseUrl}/**",
-            new PageWaitForURLOptions { Timeout = 3000 });
+        await page.WaitForURLAsync($"{_onetimeBaseUrl}/**");
         await page
             .GetByRole(AriaRole.Heading, new() { Name = "Encrypt message" })
-            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 3000});
+            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible});
     }
 
     private async Task<IPage> OpenBrowserPage(Browser browser)
