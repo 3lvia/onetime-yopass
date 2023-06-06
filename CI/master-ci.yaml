@@ -31,6 +31,8 @@ stages:
 
   - stage: DeployDev
     dependsOn: [BuildDev]
+    variables:
+    - group: vault_default_approle
     jobs:
       - template: templates/deploy.yaml
         parameters:
@@ -39,6 +41,9 @@ stages:
           elvidAuthority: "elvid.test-elvia.io"
           elvidClientId: "63db1528-e12a-455e-ad21-2bf929692c5d"
           elvidScope: "ad_groups email onetime.useraccess openid profile"
+      - template: smoketests-with-playwright.yaml
+        parameters:
+          environment: dev
           
   - stage: BuildTest
     dependsOn: []

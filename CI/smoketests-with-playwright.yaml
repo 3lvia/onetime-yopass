@@ -1,0 +1,34 @@
+parameters:
+- name: environment
+  type: string
+- name: dependsOn
+  type: object
+  default: Deploy
+- name: continueOnError
+  type: boolean
+  default: false
+- name: jobName
+  type: string
+  default: Smoketests
+
+jobs:
+- job: ${{ parameters.jobName }} 
+  dependsOn: '${{ parameters.dependsOn }}'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - checkout: self
+  - script: |
+            npm install playwright@1.33
+            npx playwright install --with-deps
+    displayName: Install Playwright tool
+  - task: DotNetCoreCLI@2
+    displayName: "Run tests"
+    inputs:
+      command: test
+      projects: "**/*smoketests/*.csproj"
+      arguments: '--configuration Release'
+    env:
+      ROLE_ID: $(vault_role_id_${{ parameters.environment }})
+      VAULT_ADDR: $(vault_addr_${{ parameters.environment }})
+    continueOnError: ${{ parameters.continueOnError }} 

@@ -17,12 +17,12 @@ export const Attribution = () => {
 
   return (
     <Container>
-    <Typography
-      margin={4}
-      variant="body2"
-      color="textSecondary"
-      align="center"
-    >
+      <Typography
+        margin={4}
+        variant="body2"
+        color="textSecondary"
+        align="center"
+      >
         {t('attribution.createdBy')}{' '}
         <Link href="https://github.com/3lvia/onetime-yopass">Johan Haals</Link>
       </Typography>
