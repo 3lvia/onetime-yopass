@@ -7613,20 +7613,20 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.npmjs.org/obuf/-/obuf-1.1.2.tgz"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-oidc-client-ts@2.2.2:
-  version "2.2.2"
-  resolved "https://registry.npmjs.org/oidc-client-ts/-/oidc-client-ts-2.2.2.tgz"
-  integrity sha512-tEpnC1xQX6PMhnDMNEvDhpqnsu0buh29b/sA9a1I5tq6lD87wRAW1rTj49B2+5925I0sQlvU64DoK0Pxeiu7Dg==
+oidc-client-ts@2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/oidc-client-ts/-/oidc-client-ts-2.2.4.tgz#7d86b5efe2248f3637a6f3a0ee1af86764aea125"
+  integrity sha512-nOZwIomju+AmXObl5Oq5PjrES/qTt8bLsENJCIydVgi9TEWk7SCkOU6X3RNkY7yfySRM1OJJvDKdREZdmnDT2g==
   dependencies:
     crypto-js "^4.1.1"
     jwt-decode "^3.1.2"
 
-oidc-react@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/oidc-react/-/oidc-react-3.2.0.tgz"
-  integrity sha512-Y+UahW7iL484qDmv1qMOeMJVw7alpsuH2aPgYcd4zvy+887NvLxsZbPwqVNlfjMf3OVGPTrhJIT+jl6y+/MhpQ==
+oidc-react@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/oidc-react/-/oidc-react-3.2.2.tgz#ea8593d294e454f06e9eea327b5eb92d03413aa4"
+  integrity sha512-xt5DtgiI6yxS+7ff2nBUZR49YfovfAApgpYhmsMoAutlqb41uZUcmquiIWRtbEXLe7UF5Zs8i1eQ1jFpr/+4JQ==
   dependencies:
-    oidc-client-ts "2.2.2"
+    oidc-client-ts "2.2.4"
 
 on-finished@2.4.1:
   version "2.4.1"
