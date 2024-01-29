@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/3lvia/hn-config-lib-go/vault"
@@ -19,7 +18,7 @@ import (
 func init() {
 	pflag.String("address", "", "listen address (default 0.0.0.0)")
 	pflag.Int("port", 1337, "listen port")
-	pflag.Int("max-length", 1024 * 1024 * 50, "max length of encrypted secret")
+	pflag.Int("max-length", 1024*1024*50, "max length of encrypted secret")
 	pflag.Int("metrics-port", -1, "metrics server listen port")
 	pflag.String("tls-cert", "", "path to TLS certificate")
 	pflag.String("tls-key", "", "path to TLS key")
@@ -29,12 +28,6 @@ func init() {
 	viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
-	// Example:
-	// ONETIME_ELVID_BASE_URL="https://elvid.test-elvia.io" go run ./cmd/yopass-server/
-	viper.SetEnvPrefix("onetime")
-	log.Println("viper.Get(\"ELVID_BASE_URL\"):", viper.Get("ELVID_BASE_URL"))
-	os.Setenv("ELVID_BASE_URL", viper.GetString("ELVID_BASE_URL"))
-	log.Println("os.Getenv(\"ELVID_BASE_URL\"):", os.Getenv("ELVID_BASE_URL"))
 }
 
 func main() {

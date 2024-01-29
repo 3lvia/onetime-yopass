@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -119,6 +120,11 @@ func (y *Server) getSecret(w http.ResponseWriter, request *http.Request) {
 	w.Write(data)
 }
 
+// Health check returns "OK"
+func (y *Server) getHealth(w http.ResponseWriter, request *http.Request) {
+	io.WriteString(w, "OK")
+}
+
 // HTTPHandler containing all routes
 func (y *Server) HTTPHandler() http.Handler {
 	mx := mux.NewRouter()
@@ -127,6 +133,7 @@ func (y *Server) HTTPHandler() http.Handler {
 	mx.HandleFunc("/secret", y.createSecret).Methods("POST")
 	mx.HandleFunc("/file", y.createSecret).Methods("POST")
 	mx.HandleFunc("/file/"+keyParameter, y.getSecret)
+	mx.HandleFunc("/health", y.getHealth)
 	return handlers.LoggingHandler(os.Stdout, SecurityHeadersHandler(mx))
 }
 

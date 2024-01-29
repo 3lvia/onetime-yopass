@@ -56,7 +56,6 @@ yarn \
 - Run Server
 
 ```bash
-export ONETIME_ELVID_BASE_URL="https://elvid.test-elvia.io"
 export VAULT_ADDR="https://vault.dev-elvia.io.io"
 export GITHUB_PERSONAL_ACCESS_TOKEN_READ_ORG_SCOPE='ghp_000000000000000000000000000000000000' # read-org-scope — read:org
 export GITHUB_TOKEN="${GITHUB_PERSONAL_ACCESS_TOKEN_READ_ORG_SCOPE}"

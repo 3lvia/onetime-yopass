@@ -2,9 +2,6 @@
 parameters:
   - name: elviaDomain
   - name: elviaRuntimeEnvironment
-  - name: elvidAuthority
-  - name: elvidClientId
-  - name: elvidScope
 
 jobs:
   - deployment: Deploy
@@ -22,9 +19,6 @@ jobs:
                   sed
                   --expression "s/:image-tag-value/:${{ parameters.elviaRuntimeEnvironment }}-$(Build.BuildNumber)/"
                   --expression "s/elvia-vault-value/vault.${{ parameters.elviaDomain }}/"
-                  --expression "s/elvid-authority-value/${{ parameters.elvidAuthority }}/"
-                  --expression "s/elvid-client-id-value/${{ parameters.elvidClientId }}/"
-                  --expression "s/elvid-scope-value/${{ parameters.elvidScope }}/"
                   --expression "s/onetime-url-value/onetime.${{ parameters.elviaDomain  }}/"
                   $(Pipeline.Workspace)/CI/manifest.yaml > manifest_modified.yaml
 
@@ -36,7 +30,7 @@ jobs:
                 namespace: onetime
                 manifests: manifest_modified.yaml
             - task: PowerShell@2
-              displayName: "GET https://onetime.${{ parameters.elviaDomain }}/"
+              displayName: "GET https://onetime.${{ parameters.elviaDomain }}/health"
               inputs:
                 failOnStderr: true
                 targetType: "filePath"
