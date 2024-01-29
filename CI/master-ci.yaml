@@ -52,9 +52,6 @@ stages:
         parameters:
           elviaRuntimeEnvironment: "test"
           elviaDomain: "test-elvia.io"
-          elvidAuthority: "elvid.test-elvia.io"
-          elvidClientId: "9e8b4a79-68a8-42cc-9838-2d6c576f3fe5"
-          elvidScope: "ad_groups email onetime.useraccess openid profile"
           
 
   - stage: DeployProd
@@ -65,6 +62,3 @@ stages:
         parameters:
           elviaRuntimeEnvironment: "prod"
           elviaDomain: "elvia.io"
-          elvidAuthority: "elvid.elvia.io"
-          elvidClientId: "49d2f4e8-ec65-4351-b2f9-6c997f9e4e82"
-          elvidScope: "ad_groups email onetime.useraccess openid profile"
