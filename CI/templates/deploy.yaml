@@ -36,7 +36,7 @@ jobs:
                 targetType: "filePath"
                 filePath: $(Pipeline.Workspace)/CI/InvokeRequestWithRetries.ps1
                 arguments: >
-                  -URI "https://onetime.${{ parameters.elviaDomain }}"
+                  -URI "https://onetime.${{ parameters.elviaDomain }}/health"
                   -Method "GET"
                   -Retries 5
                   -SecondsDelay 2
