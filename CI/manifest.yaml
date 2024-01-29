@@ -58,6 +58,7 @@ spec:
             - name: ROLE
               value: yopass
             - name: MOUNT_PATH
+              value: kubernetes/runtimeservice/onetime/yopass
           args:
             - "--metrics-port=2112"
           imagePullPolicy: Always
