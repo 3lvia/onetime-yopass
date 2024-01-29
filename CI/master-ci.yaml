@@ -19,18 +19,19 @@ resources:
       endpoint: 3lvia
 
 stages:
-  - stage: BuildDev
+  - stage: Build
     dependsOn: []
     variables:
       imageTag: dev-$(Build.BuildNumber)
     jobs:
       - template: build.yaml@templates
         parameters:
-          dockerfile: Dockerfile.dev
+          dockerfile: src/api/Dockerfile
+          dockerBuildContext: src/api
           pushImageOnPR: true
 
   - stage: DeployDev
-    dependsOn: [BuildDev]
+    dependsOn: [Build]
     variables:
     - group: vault_default_approle
     jobs:
@@ -45,18 +46,9 @@ stages:
       #   parameters:
       #     environment: dev
           
-  - stage: BuildTest
-    dependsOn: []
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    variables:
-      imageTag: test-$(Build.BuildNumber)
-    jobs:
-      - template: build.yaml@templates
-        parameters:
-          dockerfile: Dockerfile.test
 
   - stage: DeployTest
-    dependsOn: [BuildTest, DeployDev]
+    dependsOn: [DeployDev]
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - template: templates/deploy.yaml
@@ -67,18 +59,9 @@ stages:
           elvidClientId: "9e8b4a79-68a8-42cc-9838-2d6c576f3fe5"
           elvidScope: "ad_groups email onetime.useraccess openid profile"
           
-  - stage: BuildProd
-    dependsOn: []
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    variables:
-      imageTag: prod-$(Build.BuildNumber)
-    jobs:
-      - template: build.yaml@templates
-        parameters:
-          dockerfile: Dockerfile.prod
 
   - stage: DeployProd
-    dependsOn: [BuildProd, DeployTest]
+    dependsOn: [DeployTest]
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - template: templates/deploy.yaml
