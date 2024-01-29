@@ -137,7 +137,7 @@ func (y *Server) HTTPHandler() http.Handler {
 	return handlers.LoggingHandler(os.Stdout, SecurityHeadersHandler(mx))
 }
 
-const keyParameter = "{key:(?:[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12})}"
+const keyParameter = "{key}"
 
 // validExpiration validates that expiration is either
 // 3600(1hour), 86400(1day) or 604800(1week)

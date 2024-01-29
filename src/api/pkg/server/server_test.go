@@ -253,7 +253,7 @@ func TestMetrics(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if expected := len(metrics) * len(requests); n != expected {
+	if expected := len(metrics); n != expected {
 		t.Fatalf(`Expected %d recorded metrics; got %d`, expected, n)
 	}
 
@@ -262,8 +262,7 @@ func TestMetrics(t *testing.T) {
 	output := `
 # HELP yopass_http_requests_total Total number of requests served by HTTP method, path and response code.
 # TYPE yopass_http_requests_total counter
-yopass_http_requests_total{code="200",method="GET",path="/secret/:key"} 1
-yopass_http_requests_total{code="404",method="GET",path="/"} 1
+yopass_http_requests_total{code="200",method="GET",path="/secret/:key"} 2
 `
 	err = testutil.GatherAndCompare(y.registry, strings.NewReader(output), "yopass_http_requests_total")
 	if err != nil {
