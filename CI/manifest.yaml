@@ -38,8 +38,6 @@ spec:
       labels:
         app: yopass
         microservice-type: worker
-      annotations:
-        seccomp.security.alpha.kubernetes.io/pod: runtime/default
     spec:
       serviceAccountName: yopass
       imagePullSecrets:
@@ -49,6 +47,8 @@ spec:
         runAsGroup: 65532
         fsGroup: 65532
         supplementalGroups: [65532]
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: yopass
           image: containerregistryelvia.azurecr.io/onetime-yopass:image-tag-value
